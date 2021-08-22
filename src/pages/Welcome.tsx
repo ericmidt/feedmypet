@@ -24,17 +24,17 @@ export function Welcome() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.wrapper}>
-                <Text style={styles.title}>
-                    Alimente {'\n'}
-                    seu pet sem {'\n'}
-                    stress
-                </Text>
 
                 <Image
                     source={tofuSleeping}
                     style={styles.image}
                     resizeMode="contain"
                 />
+
+                <Text style={styles.title}>
+                    Alimente seu pet{'\n'}
+                    sem stress
+                </Text>
 
                 <Text style={styles.subtitle}>
                     Não precisa mais se preocupar com as refeições do seu pet. Nós cuidamos disso por você.
@@ -57,7 +57,7 @@ export function Welcome() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     wrapper: {
         flex: 1,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.text
     },
     image: {
-        height: Dimensions.get('window').width * 0.7
+        height: Dimensions.get('window').width * 0.55
     },
     button: {
         backgroundColor: colors.red,

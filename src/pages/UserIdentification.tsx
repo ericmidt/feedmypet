@@ -9,7 +9,8 @@ import {
     TouchableWithoutFeedback,
     Platform,
     Keyboard,
-    Alert
+    Alert,
+    Dimensions
 } from 'react-native';
 
 import { Button } from '../components/Button';
@@ -45,19 +46,16 @@ export function UserIdentification() {
             return Alert.alert('Me diz como chamar você')
         try {
             await AsyncStorage.setItem('@plantmanager:user', name);
-            navigation.navigate('Confirmation', {
-                title: 'Prontinho',
-                subtitle: 'Agora vamos começar a cuidar da alimentação do seu pet',
-                buttonTitle: 'Começar',
-                icon: 'smile',
-                nextScreen: 'PlantSelect'
-            });
+            navigation.navigate('ModuleSelect');
         } catch {
             return Alert.alert('Não foi possível salvar nome do pet')
         }
 
     }
 
+    function handleRegister() {
+        navigation.navigate('RegisterForm');
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -69,13 +67,8 @@ export function UserIdentification() {
                     <View style={styles.content}>
                         <View style={styles.form}>
                             <View style={styles.header}>
-                                <Text style={styles.emoji}>
-                                    {isFilled ? '🐱🐶' : '🐶🐱'}
-                                </Text>
-
                                 <Text style={styles.title}>
-                                    Qual é o nome {'\n'}
-                                    do seu pet?
+                                    Login
                                 </Text>
                             </View>
                             <TextInput
@@ -84,16 +77,37 @@ export function UserIdentification() {
                                     (isFocused || isFilled) &&
                                     { borderColor: colors.green }
                                 ]}
-                                placeholder="Digite um nome"
+                                placeholder="nome@email.com"
                                 onBlur={handleInputBlur}
                                 onFocus={handleInputFocus}
                                 onChangeText={handleInputChange}
                             />
-
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    (isFocused || isFilled) &&
+                                    { borderColor: colors.green }
+                                ]}
+                                placeholder="senha"
+                                onBlur={handleInputBlur}
+                                onFocus={handleInputFocus}
+                                onChangeText={handleInputChange}
+                            />
                             <View style={styles.footer}>
                                 <Button
                                     title={'Confirmar'}
                                     onPress={handleSubmit}
+                                />
+                            </View>
+                            <View style={styles.footer}>
+                                <Text style={styles.subtitle}>
+                                    Ainda não tem uma conta? Aperte o botão abaixo para fazer o seu cadastro!
+                                </Text>
+                            </View>
+                            <View style={styles.footer}>
+                                <Button
+                                    title={'Quero me cadastrar!'}
+                                    onPress={handleRegister}
                                 />
                             </View>
                         </View>
@@ -109,11 +123,18 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'space-around'
     },
     content: {
         flex: 1,
         width: '100%'
+    },
+    subtitle: {
+        textAlign: 'center',
+        fontSize: 18,
+        paddingHorizontal: 10,
+        color: colors.heading,
+        fontFamily: fonts.text
     },
     form: {
         flex: 1,
@@ -126,6 +147,9 @@ const styles = StyleSheet.create({
     },
     emoji: {
         fontSize: 44
+    },
+    image: {
+        height: Dimensions.get('window').width * 0.55
     },
     input: {
         borderBottomWidth: 1,
