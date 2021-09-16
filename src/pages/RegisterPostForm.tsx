@@ -63,15 +63,17 @@ export function RegisterPostForm() {
                                     Agora vamos cadastrar o seu módulo!
                                 </Text>
                             </View>
-                            <View style={styles.footer}>
-                                <Button
-                                    title={'Começar'}
-                                    onPress={handleSubmit}
-                                />
-                            </View>
+
                         </View>
                     </View>
+
                 </TouchableWithoutFeedback>
+                <View style={styles.footer}>
+                    <Button
+                        title={'Começar'}
+                        onPress={handleSubmit}
+                    />
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         width: '100%',
-        marginTop: 40,
+        marginBottom: 40,
         paddingHorizontal: 20
     }
 });

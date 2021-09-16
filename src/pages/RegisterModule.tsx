@@ -64,15 +64,16 @@ export function RegisterModule() {
                                     (aguardando desenvolvimento da comunicação com o firmware)
                                 </Text>
                             </View>
-                            <View style={styles.footer}>
-                                <Button
-                                    title={'Cadastrar'}
-                                    onPress={handleSubmit}
-                                />
-                            </View>
+
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
+                <View style={styles.footer}>
+                    <Button
+                        title={'Cadastrar'}
+                        onPress={handleSubmit}
+                    />
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         width: '100%',
-        marginTop: 40,
+        marginBottom: 40,
         paddingHorizontal: 20
     }
 });

@@ -92,8 +92,12 @@ export function RegisterFood() {
                             <Text style={styles.subtext}>
                                 Uma porção = 10g
                             </Text>
+
+                            <Text style={styles.dropdownTitle}>
+                                Quantidade de refeições
+                            </Text>
+
                             <View style={styles.Dropdown}>
-                                <Text>Quantidade de refeições</Text>
                                 <RNPickerSelect
                                     placeholder={{ label: "Selecione a quantidade", value: null }}
                                     pickerProps={{ style: { height: 40, overflow: 'hidden', justifyContent: 'center' } }}
@@ -106,9 +110,12 @@ export function RegisterFood() {
                                         { label: "5", value: "5" }
                                     ]}
                                 />
-                            </View>
-                            <View style={styles.Dropdown}>
-                                <Text>Porções por refeição</Text>
+                                <Text>
+
+                                </Text>
+                                <Text style={styles.dropdownTitle}>
+                                    Porções por refeição
+                                </Text>
                                 <RNPickerSelect
                                     placeholder={{ label: "Selecione a quantidade", value: null }}
                                     pickerProps={{ style: { height: 40, overflow: 'hidden' } }}
@@ -122,15 +129,13 @@ export function RegisterFood() {
                                     ]}
                                 />
                             </View>
-                            <View style={styles.footer}>
-                                <Button
-                                    title={'Confirmar'}
-                                    onPress={handleSave}
-                                />
-                            </View>
-
                         </View>
-
+                        <View style={styles.footer}>
+                            <Button
+                                title={'Confirmar'}
+                                onPress={handleSave}
+                            />
+                        </View>
                     </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
@@ -150,15 +155,23 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%'
     },
+    dropdownTitle: {
+        textAlign: 'left',
+        fontSize: 20,
+        paddingHorizontal: 10,
+        color: colors.heading,
+        fontFamily: fonts.text,
+        marginTop: 40
+    },
     Dropdown: {
-        flex: 1,
         backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center"
+        alignItems: "flex-start",
+        justifyContent: "center",
+        width: "100%"
     },
     footer: {
         width: '100%',
-        marginTop: 40,
+        marginBottom: 40,
         paddingHorizontal: 20
     },
     scrollListContainer: {
@@ -185,7 +198,8 @@ const styles = StyleSheet.create({
         fontFamily: fonts.text,
         color: colors.heading,
         fontSize: 17,
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 10
     },
     button: {
         backgroundColor: colors.red,
@@ -196,7 +210,7 @@ const styles = StyleSheet.create({
         marginLeft: 25,
         marginBottom: 10,
         height: 56,
-        width: 56,
+        width: 56
     },
     timeTitle: {
         textAlign: 'left',

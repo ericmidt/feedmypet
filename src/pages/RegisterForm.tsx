@@ -169,12 +169,13 @@ export function RegisterForm() {
                                 onChangeText={handleInputPasswordConfirm}
                                 secureTextEntry={true}
                             />
-                            <View style={styles.footer}>
-                                <Button
-                                    title={'Confirmar'}
-                                    onPress={handleSubmit}
-                                />
-                            </View>
+
+                        </View>
+                        <View style={styles.footer}>
+                            <Button
+                                title={'Confirmar'}
+                                onPress={handleSubmit}
+                            />
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -220,10 +221,10 @@ const styles = StyleSheet.create({
         fontFamily: fonts.text
     },
     form: {
-        flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 54,
         alignItems: 'center',
+        marginBottom: 40
     },
     header: {
         alignItems: 'center'
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         width: '100%',
-        marginTop: 40,
+        marginBottom: 40,
         paddingHorizontal: 20
     }
 });

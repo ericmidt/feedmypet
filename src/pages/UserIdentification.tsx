@@ -104,14 +104,16 @@ export function UserIdentification() {
                                     Ainda não tem uma conta? Aperte o botão abaixo para fazer o seu cadastro!
                                 </Text>
                             </View>
-                            <View style={styles.footer}>
-                                <Button
-                                    title={'Quero me cadastrar!'}
-                                    onPress={handleRegister}
-                                />
-                            </View>
+
+                        </View>
+                        <View style={styles.footer2}>
+                            <Button
+                                title={'Quero me cadastrar!'}
+                                onPress={handleRegister}
+                            />
                         </View>
                     </View>
+
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -171,7 +173,15 @@ const styles = StyleSheet.create({
     },
     footer: {
         width: '100%',
+        marginBottom: 40,
         marginTop: 40,
         paddingHorizontal: 20
+    },
+    footer2: {
+        width: '100%',
+        marginBottom: 40,
+        marginTop: 40,
+        paddingHorizontal: 75
     }
+
 });

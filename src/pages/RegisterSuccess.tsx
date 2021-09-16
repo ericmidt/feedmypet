@@ -62,12 +62,14 @@ export function RegisterSuccess() {
                                     Cadastro completo!
                                 </Text>
                             </View>
-                            <View style={styles.footer}>
-                                <Button
-                                    title={'Começar'}
-                                    onPress={handleSubmit}
-                                />
-                            </View>
+
+                        </View>
+
+                        <View style={styles.footer}>
+                            <Button
+                                title={'Começar'}
+                                onPress={handleSubmit}
+                            />
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         width: '100%',
-        marginTop: 40,
+        marginBottom: 40,
         paddingHorizontal: 20
     }
 });

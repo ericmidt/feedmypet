@@ -123,15 +123,16 @@ export function RegisterFoodTime() {
                                     </TouchableOpacity>
                                 )
                             }
-
-                            <Button
-                                title="Cadastrar horário"
-                                onPress={handleSave}
-                            />
-
                         </View>
+
                     </View>
                 </ScrollView>
+                <View style={styles.footer}>
+                    <Button
+                        title="Cadastrar horário"
+                        onPress={handleSave}
+                    />
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontFamily: fonts.text,
         color: colors.heading,
-        fontSize: 17,
+        fontSize: 20,
         marginTop: 20
     },
     tipContainer: {
@@ -211,5 +212,10 @@ const styles = StyleSheet.create({
         color: colors.heading,
         fontSize: 24,
         fontFamily: fonts.text
+    },
+    footer: {
+        width: '100%',
+        marginBottom: 40,
+        paddingHorizontal: 20
     }
 });
