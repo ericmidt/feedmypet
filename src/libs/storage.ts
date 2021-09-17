@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 export interface PlantProps {
     id: string;
     name: string;
+    password: string;
     about: string;
     water_tips: string;
     photo: string;

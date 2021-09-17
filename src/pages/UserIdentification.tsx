@@ -24,6 +24,7 @@ export function UserIdentification() {
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
     const [name, setName] = useState<string>();
+    const [password, setPassword] = useState<string>();
 
     const navigation = useNavigation();
 
@@ -36,21 +37,27 @@ export function UserIdentification() {
         setIsFocused(true);
     }
 
-    function handleInputChange(value: string) {
+    function handleInputChangeName(value: string) {
         setIsFilled(!!value);
         setName(value);
+    }
+    function handleInputChangePassword(value: string) {
+        setIsFilled(!!value);
+        setPassword(value);
     }
 
     async function handleSubmit() {
         if (!name)
-            return Alert.alert('Me diz como chamar você')
+            return Alert.alert('Insira seu email')
+        if (!password)
+            return Alert.alert('Insira sua senha')
         try {
             await AsyncStorage.setItem('@plantmanager:user', name);
+            await AsyncStorage.setItem('@plantmanager:password', password);
             navigation.navigate('ModuleSelect');
         } catch {
             return Alert.alert('Não foi possível salvar nome do pet')
         }
-
     }
 
     function handleRegister() {
@@ -80,7 +87,7 @@ export function UserIdentification() {
                                 placeholder="nome@email.com"
                                 onBlur={handleInputBlur}
                                 onFocus={handleInputFocus}
-                                onChangeText={handleInputChange}
+                                onChangeText={handleInputChangeName}
                             />
                             <TextInput
                                 style={[
@@ -91,7 +98,7 @@ export function UserIdentification() {
                                 placeholder="senha"
                                 onBlur={handleInputBlur}
                                 onFocus={handleInputFocus}
-                                onChangeText={handleInputChange}
+                                onChangeText={handleInputChangePassword}
                             />
                             <View style={styles.footer}>
                                 <Button
