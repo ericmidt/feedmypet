@@ -40,15 +40,19 @@ export function EnvironmentButton({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.shape,
-        width: 76,
-        height: 40,
+        width: 200,
+        height: 70,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 12,
-        marginHorizontal: 5
+        marginHorizontal: 5,
+        marginTop: 60,
+        marginLeft: 100
     },
     containerActive: {
-        backgroundColor: colors.green_light
+        backgroundColor: colors.green_light,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     text: {
         color: colors.heading,

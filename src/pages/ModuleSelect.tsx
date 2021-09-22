@@ -4,7 +4,8 @@ import {
     Text,
     StyleSheet,
     FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 
 import { Header } from '../components/Header';
@@ -16,18 +17,25 @@ import api from '../services/api';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load';
 import { useNavigation } from '@react-navigation/native';
-import { PlantProps } from '../libs/storage';
+import { ModuleProps } from '../libs/storage';
 
-interface EnvironmentProps {
-    key: string;
-    title: string;
-}
+// interface ModulesProps {
+//     key: string;
+//     user: string;
+//     pet_name: string;
+//     frequency: number;
+//     portions_per_meal: number;
+//     times: [
+//         number,
+//         number
+//     ]
+// }
 
 export function ModuleSelect() {
-    const [environments, setEnvironments] = useState<EnvironmentProps[]>([]);
-    const [plants, setPlants] = useState<PlantProps[]>([]);
-    const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
-    const [environmentSelected, setEnvironmentSelected] = useState('all');
+    const [modules, setModules] = useState<ModuleProps[]>([]);
+    const [plants, setPlants] = useState<ModuleProps[]>([]);
+    const [filteredPlants, setFilteredPlants] = useState<ModuleProps[]>([]);
+    const [moduleSelected, setModuleSelected] = useState('all');
     const [loading, setLoading] = useState(true);
 
     const [page, setPage] = useState(1);
@@ -36,36 +44,17 @@ export function ModuleSelect() {
     const navigation = useNavigation();
 
 
-    function handleEnvironmentSelected(environment: string) {
-        setEnvironmentSelected(environment);
-
-        if (environment == 'all')
-            return setFilteredPlants(plants);
-
-        const filtered = plants.filter(plant =>
-            plant.environments.includes(environment)
-        );
-
-        setFilteredPlants(filtered);
-    }
-
-    function handleModuleSelect(plant: PlantProps) {
-        navigation.navigate('ModuleEdit', { plant });
+    function handleModuleSelect(module: ModuleProps) {
+        navigation.navigate('ModuleEdit', { module });
     }
 
 
     useEffect(() => {
-        async function fetchEnvironment() {
-            const { data } = await api.get('plants_environments?_sort=title&_order=asc');
-            setEnvironments([
-                {
-                    key: 'all',
-                    title: 'Todos',
-                },
-                ...data
-            ]);
+        async function fetchModules() {
+            const { data } = await api.get('modules?_sort=pet_name&_order=asc');
+            setModules(data);
         }
-        fetchEnvironment();
+        fetchModules();
         setLoading(false);
         setLoadingMore(false);
     }, [])
@@ -84,16 +73,14 @@ export function ModuleSelect() {
 
             <View>
                 <FlatList
-                    data={environments}
-                    keyExtractor={(item) => String(item.key)}
+                    data={modules}
+                    // keyExtractor={(item) => String(item.key)}
                     renderItem={({ item }) => (
                         <EnvironmentButton
-                            title={item.title}
-                            active={item.key === environmentSelected}
-                            onPress={() => handleEnvironmentSelected(item.key)}
+                            title={item.pet_name}
+                            onPress={() => handleModuleSelect(item)}
                         />
                     )}
-                    horizontal
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.environmentList}
                 />
@@ -119,18 +106,10 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         marginTop: 15
     },
-    subtitle: {
-        fontFamily: fonts.text,
-        fontSize: 17,
-        lineHeight: 20,
-        color: colors.heading
-    },
     environmentList: {
-        height: 40,
-        justifyContent: 'center',
-        paddingBottom: 5,
-        marginLeft: 32,
-        marginVertical: 32
+        height: 500,
+        width: 500,
+        justifyContent: 'center'
     },
     plants: {
         flex: 1,

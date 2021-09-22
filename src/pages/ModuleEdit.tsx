@@ -13,17 +13,20 @@ import { SvgFromUri } from 'react-native-svg';
 import { useRoute } from '@react-navigation/core';
 import { Button } from '../components/Button';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
+import { Load } from '../components/Load';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { format, isBefore } from 'date-fns';
-import { PlantProps, savePlant } from '../libs/storage';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonBack } from '../components/ButtonBack';
 import RNPickerSelect from 'react-native-picker-select';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useEffect } from 'react';
+import { ModuleProps } from '../libs/storage';
+import api from '../services/api';
 
 
 
@@ -34,6 +37,11 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 export function ModuleEdit() {
     const [refeicoes, setRefeicoes] = useState<string>();
     const [porcoes, setPorcoes] = useState<string>();
+    const [loading, setLoading] = useState(true);
+
+    const [page, setPage] = useState(1);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [modules, setModules] = useState<ModuleProps[]>([]);
 
     const route = useRoute();
 
@@ -66,6 +74,18 @@ export function ModuleEdit() {
         }
     }
 
+    useEffect(() => {
+        async function fetchModules() {
+            const { data } = await api.get('modules?_sort=pet_name&_order=asc');
+            setModules(data);
+        }
+        fetchModules();
+        setLoading(false);
+        setLoadingMore(false);
+    }, [])
+
+    if (loading)
+        return <Load />
 
     return (
         <SafeAreaView style={styles.container}>

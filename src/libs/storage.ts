@@ -2,9 +2,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Notifications from 'expo-notifications';
 import { format } from 'date-fns';
 
-export interface PlantProps {
+export interface ModuleProps {
     id: string;
     name: string;
+    pet_name: string;
     password: string;
     about: string;
     water_tips: string;
@@ -18,14 +19,14 @@ export interface PlantProps {
     dateTimeNotification: Date;
 }
 
-export interface StoragePlantProps {
+export interface StorageModuleProps {
     [id: string]: {
-        data: PlantProps;
+        data: ModuleProps;
         notificationId: string;
     }
 }
 
-export async function savePlant(plant: PlantProps): Promise<void> {
+export async function savePlant(plant: ModuleProps): Promise<void> {
     try {
         const nextTime = new Date(plant.dateTimeNotification);
         const now = new Date();
@@ -57,7 +58,7 @@ export async function savePlant(plant: PlantProps): Promise<void> {
         });
 
         const data = await AsyncStorage.getItem('@plantmanager:plants');
-        const oldPlants = data ? (JSON.parse(data) as StoragePlantProps) : {};
+        const oldPlants = data ? (JSON.parse(data) as StorageModuleProps) : {};
 
         const newPlant = {
             [plant.id]: {
@@ -76,10 +77,10 @@ export async function savePlant(plant: PlantProps): Promise<void> {
     }
 }
 
-export async function loadPlant(): Promise<PlantProps[]> {
+export async function loadPlant(): Promise<ModuleProps[]> {
     try {
         const data = await AsyncStorage.getItem('@plantmanager:plants');
-        const plants = data ? (JSON.parse(data) as StoragePlantProps) : {};
+        const plants = data ? (JSON.parse(data) as StorageModuleProps) : {};
 
         const plantsSorted = Object
             .keys(plants)
@@ -104,7 +105,7 @@ export async function loadPlant(): Promise<PlantProps[]> {
 
 export async function removePlant(id: string): Promise<void> {
     const data = await AsyncStorage.getItem('@plantmanager:plants');
-    const plants = data ? (JSON.parse(data) as StoragePlantProps) : {};
+    const plants = data ? (JSON.parse(data) as StorageModuleProps) : {};
 
     await Notifications.cancelScheduledNotificationAsync(plants[id].notificationId);
     delete plants[id];

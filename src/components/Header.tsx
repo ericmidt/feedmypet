@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     Text,
-    View,
-    Image
+    View
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
-import userImg from "../../assets/tofu_sleeping_close.png";
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
@@ -26,15 +24,8 @@ export function Header() {
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.greeting}>Olá,</Text>
-                <Text style={styles.userName}>
-                    {userName}
-                </Text>
-
+                <Text style={styles.greeting}>Olá, {userName}</Text>
             </View>
-
-            <Image source={userImg} style={styles.image} />
-
         </View>
     )
 }
@@ -57,13 +48,5 @@ const styles = StyleSheet.create({
         fontSize: 32,
         color: colors.heading,
         fontFamily: fonts.text
-    },
-    userName: {
-        fontSize: 32,
-        color: colors.heading,
-        fontFamily: fonts.heading,
-        lineHeight: 40
     }
-
-
 });
