@@ -21,9 +21,14 @@ import fonts from '../../styles/fonts';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// keyboard dismiss func
+import { useHeaderHeight  } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
 
-// form validation library import
-import { useForm } from "react-hook-form";
+
+// email and password validator
+import * as yup from 'yup';
+import { isValid } from 'date-fns';
 
 export function RegisterForm() {
     // const [isFocused, setIsFocused] = useState(false);
@@ -36,8 +41,19 @@ export function RegisterForm() {
 
     const navigation = useNavigation();
 
-    //
-    const { register, handleSubmit } = useForm();
+
+    const validationSchema = yup.object().shape({
+        email: yup
+            .string()
+            .defined()
+            .email('Digite um e-mail válido'),
+        password: yup
+            .string()
+            .min(6, 'A senha deve ter no mínimo 6 caracteres')
+            .defined()
+        
+      });
+    
 
     // function handleInputBlur() {
     //     setIsFocused(false);
@@ -77,28 +93,44 @@ export function RegisterForm() {
         navigation.navigate('UserIdentification');
     }
 
-    async function submitHandler() {
+   
+
+    async function handleSubmit() {
         if (!(name && petName && email && password && passwordConfirm))
             return Alert.alert('Preencha todos os dados por favor!')
-        if (password != passwordConfirm)
-            return Alert.alert('As senhas são diferentes!')
-        try {
-            await AsyncStorage.setItem('@plantmanager:user', name);
-            await AsyncStorage.setItem('@plantmanager:pet', petName);
-            await AsyncStorage.setItem('@plantmanager:email', email);
-            await AsyncStorage.setItem('@plantmanager:password', password);
+        
+            // email and password validation
+            validationSchema
+            .validate({
+                email: email,
+                password: password
+            }).then(function(valid){
+                if (password != passwordConfirm)
+                return Alert.alert('As senhas são diferentes!')
+                try {
+                     AsyncStorage.setItem('@plantmanager:user', name);
+                     AsyncStorage.setItem('@plantmanager:pet', petName);
+                     AsyncStorage.setItem('@plantmanager:email', email);
+                     AsyncStorage.setItem('@plantmanager:password', password);
+        
+                    navigation.navigate('RegisterPostForm');
+                } catch {
+                    return Alert.alert('Não foi possível realizar o cadastro...')
+                }
 
-            navigation.navigate('RegisterPostForm');
-        } catch {
-            return Alert.alert('Não foi possível realizar o cadastro...')
-        }
+              })
+              .catch(function (err) {
+                alert(err.errors );
+                //err.errors; 
+              });
 
     }
 
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
-                style={styles.container}
+                 keyboardVerticalOffset = {useHeaderHeight() + 20} // adjust the value here if you need more padding: ;
+                style = {styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -180,7 +212,7 @@ export function RegisterForm() {
                         <View style={styles.footer}>
                             <Button
                                 title={'Confirmar'}
-                                onPress={submitHandler}
+                                onPress={handleSubmit}
                             />
                         </View>
                     </View>
