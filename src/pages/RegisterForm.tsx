@@ -28,7 +28,6 @@ import 'react-native-gesture-handler';
 
 // email and password validator
 import * as yup from 'yup';
-import { isValid } from 'date-fns';
 
 export function RegisterForm() {
     // const [isFocused, setIsFocused] = useState(false);
@@ -45,11 +44,11 @@ export function RegisterForm() {
     const validationSchema = yup.object().shape({
         email: yup
             .string()
-            .defined()
-            .email('Digite um e-mail válido'),
+            //.email('Digite um e-mail válido')
+            .defined(),
         password: yup
             .string()
-            .min(6, 'A senha deve ter no mínimo 6 caracteres')
+            //.min(6, 'A senha deve ter no mínimo 6 caracteres')
             .defined()
         
       });
@@ -125,11 +124,10 @@ export function RegisterForm() {
               });
 
     }
-
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
-                 keyboardVerticalOffset = {useHeaderHeight() + 20} // adjust the value here if you need more padding: ;
+                 keyboardVerticalOffset = {-300} // adjust the value here if you need more padding: ;
                 style = {styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
@@ -279,9 +277,10 @@ const styles = StyleSheet.create({
         color: colors.heading,
         width: '100%',
         fontSize: 18,
-        marginTop: 50,
+        marginTop: 30,
         padding: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        maxWidth: 250
     },
     title: {
         fontSize: 24,
@@ -292,7 +291,9 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     footer: {
-        width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: 300,
         marginBottom: 40,
         paddingHorizontal: 20
     }

@@ -74,7 +74,7 @@ export function ModuleSelect() {
             <View>
                 <FlatList
                     data={modules}
-                    // keyExtractor={(item) => String(item.key)}
+                    keyExtractor={(item) => String(item.key.toString())}
                     renderItem={({ item }) => (
                         <EnvironmentButton
                             title={item.pet_name}

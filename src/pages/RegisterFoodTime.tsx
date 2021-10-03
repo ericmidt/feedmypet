@@ -24,6 +24,8 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonBack } from '../components/ButtonBack';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 // interface Params {
@@ -35,7 +37,14 @@ export function RegisterFoodTime() {
     const [showDatePicker, setShowDatePicker] = useState(Platform.OS == 'ios');
     const route = useRoute();
 
+    const [refeicoes, setRefeicoes] = useState<string>();
     // const { plant } = route.params as Params;
+    async function loadStorageRefeicao() {
+        const refeicaoQuantity  = await AsyncStorage.getItem('@plantmanager:refeicao_quantity');
+        console.log('it works: ', refeicaoQuantity )
+    }
+
+    loadStorageRefeicao()
 
     const navigation = useNavigation();
 
@@ -93,7 +102,7 @@ export function RegisterFoodTime() {
                             <Text style={styles.text}>
                                 Chegou a hora de agendar a primeira refeição do seu pet!
 
-                                Escolha o horário desejado abaixo.
+                                Escolha o(s) horário(s) desejado(s) abaixo.
                             </Text>
                             <Text style={styles.timeTitle}>
                                 Horário 1

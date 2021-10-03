@@ -5,6 +5,7 @@ import {
     Text,
     View,
     ScrollView,
+    TextInput,
     Platform,
     KeyboardAvoidingView,
     Keyboard
@@ -22,10 +23,12 @@ import { PlantProps, savePlant } from '../libs/storage';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonBack } from '../components/ButtonBack';
-import RNPickerSelect from 'react-native-picker-select';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 
+// email and password validator
+import * as yup from 'yup';
+import api from '../services/api';
 
 // interface Params {
 //     plant: PlantProps
@@ -34,6 +37,22 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 export function RegisterFood() {
     const [refeicoes, setRefeicoes] = useState<string>();
     const [porcoes, setPorcoes] = useState<string>();
+
+    // food limitations
+    const inputSchema = yup.object().shape({
+        refeicoes: yup
+            .number()
+            .defined()
+            .min(1,'Numero de refeições inválido, escolha entre 1 e 5')
+            .max(5, 'Numero de refeições inválido, escolha entre 1 e 5'),
+        porcoes: yup
+            .number()
+            .min(1,'Numero de porções inválido, escolha entre 1 e 5')
+            .max(5, 'Numero de porções inválido, escolha entre 1 e 5')
+            .defined(),
+        
+    });
+    
 
     const route = useRoute();
 
@@ -48,21 +67,39 @@ export function RegisterFood() {
 
     function handlePorcoes(value: string) {
         setPorcoes(value);
-
     }
 
     function handleReturn() {
         navigation.navigate('RegisterModule');
     }
 
+    function isNumeric(num: any){
+        return !isNaN(num)
+    }
+
     async function handleSave() {
+        if (!(refeicoes && porcoes))
+        return Alert.alert('Preencha todos os dados por favor!')
         try {
             // await savePlant({
             //     // ...plant,
             //     dateTimeNotification: selectedDateTime
             // });
-
+            // refeicoes validation
+        if(!isNumeric(refeicoes) ||  !isNumeric(porcoes))
+        return Alert.alert('Apenas números são aceitos')
+        inputSchema
+        .validate({
+            porcoes: porcoes,
+            refeicoes: refeicoes
+        }).then(function(valid){
+            // SALVAR INFORMAÇÕES DE COMIDA NA API
             navigation.navigate('RegisterFoodTime');
+          })
+          .catch(function (err) {
+            alert(err.errors );
+            //err.errors; 
+          });
         } catch {
             Alert.alert('Não foi possível salvar.');
         }
@@ -72,6 +109,7 @@ export function RegisterFood() {
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
+                keyboardVerticalOffset = {-300} // adjust the value here if you need more padding: ;
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
@@ -92,41 +130,35 @@ export function RegisterFood() {
                             <Text style={styles.subtext}>
                                 Uma porção = 10g
                             </Text>
-
-                            <Text style={styles.dropdownTitle}>
-                                Quantidade de refeições
-                            </Text>
-
                             <View style={styles.Dropdown}>
-                                <RNPickerSelect
-                                    placeholder={{ label: "Selecione a quantidade", value: null }}
-                                    pickerProps={{ style: { height: 40, overflow: 'hidden', justifyContent: 'center' } }}
-                                    onValueChange={(value) => handleRefeicoesChange(value)}
-                                    items={[
-                                        { label: "1", value: "1" },
-                                        { label: "2", value: "2" },
-                                        { label: "3", value: "3" },
-                                        { label: "4", value: "4" },
-                                        { label: "5", value: "5" }
-                                    ]}
-                                />
-                                <Text>
-
+                                <Text style={styles.dropdownTitle}>
+                                Quantidade de refeições
                                 </Text>
+                                <TextInput
+                                    style={[
+                                    styles.input,
+                                    // (isFocused || isFilled) &&
+                                    // { borderColor: colors.green }
+                                 ]}
+                                    placeholder="Refeições (1-5)"
+                                    // onBlur={handleInputBlur}
+                                    // onFocus={handleInputFocus}
+                                    onChangeText={(value) => handleRefeicoesChange(value)}
+                                    />
+
                                 <Text style={styles.dropdownTitle}>
                                     Porções por refeição
                                 </Text>
-                                <RNPickerSelect
-                                    placeholder={{ label: "Selecione a quantidade", value: null }}
-                                    pickerProps={{ style: { height: 40, overflow: 'hidden' } }}
-                                    onValueChange={(value) => handlePorcoes(value)}
-                                    items={[
-                                        { label: "1", value: "1" },
-                                        { label: "2", value: "2" },
-                                        { label: "3", value: "3" },
-                                        { label: "4", value: "4" },
-                                        { label: "5", value: "5" }
+                                <TextInput
+                                    style={[
+                                    styles.input,
+                                    // (isFocused || isFilled) &&
+                                    // { borderColor: colors.green }
                                     ]}
+                                    placeholder="Porções (1-5)"
+                                    // onBlur={handleInputBlur}
+                                    // onFocus={handleInputFocus}
+                                    onChangeText={(value) => handlePorcoes(value)}
                                 />
                             </View>
                         </View>
@@ -154,23 +186,41 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         width: '100%'
+        
     },
     dropdownTitle: {
-        textAlign: 'left',
+        textAlign: 'center',
         fontSize: 20,
         paddingHorizontal: 10,
         color: colors.heading,
         fontFamily: fonts.text,
         marginTop: 40
     },
+    input: {
+        borderBottomWidth: 1,
+        borderColor: colors.gray,
+        color: colors.heading,
+        width: '100%',
+        fontSize: 18,
+        marginTop: 30,
+        padding: 10,
+        textAlign: 'center',
+        maxWidth: 250
+    },
     Dropdown: {
         backgroundColor: "#fff",
-        alignItems: "flex-start",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: "center",
-        width: "100%"
+        width: "100%",
+        marginVertical: 20
+        
     },
     footer: {
-        width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: 300,
         marginBottom: 40,
         paddingHorizontal: 20
     },
