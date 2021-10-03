@@ -22,6 +22,9 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// form validation library import
+import { useForm } from "react-hook-form";
+
 export function RegisterForm() {
     // const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
@@ -32,6 +35,9 @@ export function RegisterForm() {
     const [passwordConfirm, setPasswordConfirm] = useState<string>();
 
     const navigation = useNavigation();
+
+    //
+    const { register, handleSubmit } = useForm();
 
     // function handleInputBlur() {
     //     setIsFocused(false);
@@ -71,7 +77,7 @@ export function RegisterForm() {
         navigation.navigate('UserIdentification');
     }
 
-    async function handleSubmit() {
+    async function submitHandler() {
         if (!(name && petName && email && password && passwordConfirm))
             return Alert.alert('Preencha todos os dados por favor!')
         if (password != passwordConfirm)
@@ -174,7 +180,7 @@ export function RegisterForm() {
                         <View style={styles.footer}>
                             <Button
                                 title={'Confirmar'}
-                                onPress={handleSubmit}
+                                onPress={submitHandler}
                             />
                         </View>
                     </View>
