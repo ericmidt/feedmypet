@@ -70,6 +70,7 @@ export function RegisterFoodTime() {
     useEffect(() => {
         async function fetchRefeicoes() {
             const refeicaoQuantity  = await AsyncStorage.getItem('@plantmanager:refeicao_quantity');
+            console.log('refeicao', refeicaoQuantity)
             let data = [];
             if(refeicaoQuantity){
                 setQuantity(refeicaoQuantity);
@@ -108,7 +109,7 @@ export function RegisterFoodTime() {
                   setHorario2(false);
                 }
                 else if(Number(refeicaoQuantity) === 1){
-                  setHorario1(true);
+                  setHorario1(false);
                 }
             }
             

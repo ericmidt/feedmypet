@@ -79,7 +79,7 @@ export function RegisterFood() {
     }
 
     async function handleSave() {
-        const refeicaoQuantity  = await AsyncStorage.getItem('@plantmanager:refeicao_quantity');
+        const user_email  = await AsyncStorage.getItem('@plantmanager:user');
         if (!(refeicoes && porcoes))
         return Alert.alert('Preencha todos os dados por favor!')
         try {
@@ -96,8 +96,8 @@ export function RegisterFood() {
             refeicoes: refeicoes
         }).then(function(valid){
             // SALVAR INFORMAÇÕES DE COMIDA NA API
-            console.log('')
-            
+            console.log('email do usuario salvo na ultima pagina', user_email)
+            saveStorageRefeicao(refeicoes);
             /*
             try {
                 let credentials = { name, petName, email, password };
@@ -127,6 +127,9 @@ export function RegisterFood() {
             }
             */
 
+            async function saveStorageRefeicao(refeicao_quantity:any) {
+                AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicao_quantity);
+            }
 
             navigation.navigate('RegisterFoodTime');
           })
