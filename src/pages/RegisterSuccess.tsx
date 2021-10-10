@@ -27,9 +27,9 @@ export function RegisterSuccess() {
 
 
     function handleReturn() {
-        navigation.navigate('RegisterFoodTime');
+        navigation.goBack();
     }
-
+    
     async function handleSubmit() {
         try {
             navigation.navigate('UserIdentification');

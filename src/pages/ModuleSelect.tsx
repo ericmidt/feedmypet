@@ -72,6 +72,7 @@ export function ModuleSelect() {
             </View>
 
             <View>
+                {/* essa library ajuda a criar varios componentes repetidos, dependendo do objeto que recebe */}
                 <FlatList
                     data={modules}
                     keyExtractor={(item) => String(item.key.toString())}

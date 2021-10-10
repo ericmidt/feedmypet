@@ -26,7 +26,7 @@ export function RegisterModule() {
     const navigation = useNavigation();
 
     function handleReturn() {
-        navigation.navigate('RegisterPostForm');
+        navigation.goBack();
     }
 
     async function handleSubmit() {

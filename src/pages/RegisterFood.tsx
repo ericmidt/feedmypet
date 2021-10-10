@@ -24,7 +24,8 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonBack } from '../components/ButtonBack';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // email and password validator
 import * as yup from 'yup';
@@ -70,7 +71,7 @@ export function RegisterFood() {
     }
 
     function handleReturn() {
-        navigation.navigate('RegisterModule');
+        navigation.goBack();
     }
 
     function isNumeric(num: any){
@@ -78,6 +79,7 @@ export function RegisterFood() {
     }
 
     async function handleSave() {
+        const refeicaoQuantity  = await AsyncStorage.getItem('@plantmanager:refeicao_quantity');
         if (!(refeicoes && porcoes))
         return Alert.alert('Preencha todos os dados por favor!')
         try {
@@ -94,6 +96,38 @@ export function RegisterFood() {
             refeicoes: refeicoes
         }).then(function(valid){
             // SALVAR INFORMAÇÕES DE COMIDA NA API
+            console.log('')
+            
+            /*
+            try {
+                let credentials = { name, petName, email, password };
+                console.log(credentials);
+                const url = "http://192.168.18.31:3000/user/signup";
+                axios
+                    .post(url, credentials)
+                    .then((response) => {
+                        const result = response.data;
+                        const { message, status, data } = result;
+                        console.log(message);
+                        if (status !== "SUCCESS") {
+                            console.log(response.data.message);
+                            Alert.alert(response.data.message);
+                        } else {
+                            console.log(response.data.message);
+                            navigation.navigate("RegisterPostForm", { ...data[0] });
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                        console.log(error.response.data);
+                    })
+
+                //navigation.navigate('RegisterPostForm');
+            } catch {
+                return Alert.alert('Não foi possível realizar o cadastro...')
+            }
+            */
+
+
             navigation.navigate('RegisterFoodTime');
           })
           .catch(function (err) {

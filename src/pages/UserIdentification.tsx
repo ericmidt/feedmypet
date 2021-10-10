@@ -19,7 +19,7 @@ import fonts from '../../styles/fonts';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import axios from "axios";
 
 
 export function UserIdentification() {
@@ -27,6 +27,8 @@ export function UserIdentification() {
     const [isFilled, setIsFilled] = useState(false);
     const [name, setName] = useState<string>();
     const [password, setPassword] = useState<string>();
+    const [message, setMessage] = useState<string>()
+    const [messageType, setMessageType] = useState<string>();
 
     const navigation = useNavigation();
 
@@ -39,6 +41,11 @@ export function UserIdentification() {
         setIsFocused(true);
     }
 
+    const handleMessage = (message: string, type = "FAILED") => {
+        setMessage(message);
+        setMessageType(type);
+    }
+
     function handleInputChangeName(value: string) {
         setIsFilled(!!value);
         setName(value);
@@ -48,11 +55,41 @@ export function UserIdentification() {
         setPassword(value);
     }
 
-    async function handleSubmit() {
+    async function handleLogin() {
         if (!name)
             return Alert.alert('Insira seu email')
         if (!password)
             return Alert.alert('Insira sua senha')
+        let credentials = { name, password };
+       
+        try {
+            handleMessage("");
+            const url = "http://192.168.18.31:3000/user/signin";
+            axios
+                .post(url, credentials)
+                .then((response) => {
+                    const result = response.data;
+                    const { message, status, data } = result;
+                    if (status !== "SUCCESS") {
+                        console.log(response.data.message);
+                        Alert.alert(response.data.message);
+                    } else {
+                        console.log(response.data.message);
+                        navigation.navigate("ModuleSelect", { ...data[0] });
+                    }
+                }).catch(error => {
+                    console.log('erro:', error)
+                    console.log(error.response.data);
+                })
+            // await AsyncStorage.setItem('@plantmanager:user', name);
+            // await AsyncStorage.setItem('@plantmanager:password', password);
+            // navigation.navigate('ModuleSelect');
+            
+        } catch {
+            return Alert.alert('Não foi possível efetuar o login')
+        }
+        
+        /*
         try {
             await AsyncStorage.setItem('@plantmanager:user', name);
             await AsyncStorage.setItem('@plantmanager:password', password);
@@ -60,6 +97,8 @@ export function UserIdentification() {
         } catch {
             return Alert.alert('Não foi possível salvar nome do pet')
         }
+        */
+
     }
 
     function handleRegister() {
@@ -105,7 +144,7 @@ export function UserIdentification() {
                             <View style={styles.footer}>
                                 <Button
                                     title={'Confirmar'}
-                                    onPress={handleSubmit}
+                                    onPress={handleLogin}
                                 />
                             </View>
                             <View style={styles.footer}>

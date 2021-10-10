@@ -27,7 +27,7 @@ export function RegisterPostForm() {
 
 
     function handleReturn() {
-        navigation.navigate('RegisterForm');
+        navigation.goBack();
     }
 
     async function handleSubmit() {

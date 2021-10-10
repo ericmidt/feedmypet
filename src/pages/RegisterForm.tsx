@@ -24,6 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // keyboard dismiss func
 import { useHeaderHeight  } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
+import axios from "axios";
 
 
 // email and password validator
@@ -89,7 +90,7 @@ export function RegisterForm() {
     }
 
     function handleReturn() {
-        navigation.navigate('UserIdentification');
+        navigation.goBack();
     }
 
    
@@ -107,6 +108,36 @@ export function RegisterForm() {
                 if (password != passwordConfirm)
                 return Alert.alert('As senhas são diferentes!')
                 try {
+                    let credentials = { name, petName, email, password };
+                    console.log(credentials);
+                    const url = "http://192.168.18.31:3000/user/signup";
+                    axios
+                        .post(url, credentials)
+                        .then((response) => {
+                            const result = response.data;
+                            const { message, status, data } = result;
+                            console.log(message);
+                            if (status !== "SUCCESS") {
+                                console.log(response.data.message);
+                                Alert.alert(response.data.message);
+                            } else {
+                                console.log(response.data.message);
+                                //save email
+                                AsyncStorage.setItem('@plantmanager:user', email);
+                                navigation.navigate("RegisterPostForm", { ...data[0] });
+
+                            }
+                        }).catch(error => {
+                            console.log(error);
+                            console.log(error.response.data);
+                        })
+
+                    //navigation.navigate('RegisterPostForm');
+                } catch {
+                    return Alert.alert('Não foi possível realizar o cadastro...')
+                }
+                /*
+                try {
                      AsyncStorage.setItem('@plantmanager:user', name);
                      AsyncStorage.setItem('@plantmanager:pet', petName);
                      AsyncStorage.setItem('@plantmanager:email', email);
@@ -116,6 +147,7 @@ export function RegisterForm() {
                 } catch {
                     return Alert.alert('Não foi possível realizar o cadastro...')
                 }
+                 */
 
               })
               .catch(function (err) {
