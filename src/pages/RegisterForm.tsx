@@ -45,11 +45,11 @@ export function RegisterForm() {
     const validationSchema = yup.object().shape({
         email: yup
             .string()
-            //.email('Digite um e-mail válido')
+            .email('Digite um e-mail válido')
             .defined(),
         password: yup
             .string()
-            //.min(6, 'A senha deve ter no mínimo 6 caracteres')
+            .min(8, 'A senha deve ter no mínimo 8 caracteres')
             .defined()
         
       });

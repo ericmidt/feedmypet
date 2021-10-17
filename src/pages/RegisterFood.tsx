@@ -98,13 +98,13 @@ export function RegisterFood() {
             // SALVAR INFORMAÇÕES DE COMIDA NA API
             console.log('email do usuario salvo na ultima pagina', user_email)
             saveStorageRefeicao(refeicoes);
-            /*
+            
             try {
-                let credentials = { name, petName, email, password };
-                console.log(credentials);
-                const url = "http://192.168.18.31:3000/user/signup";
+                let data = { email: user_email, mealQuantity: refeicoes, portionsPerMeal: porcoes };
+                console.log(data);
+                const url = "http://192.168.18.31:3000/user/registerfood";
                 axios
-                    .post(url, credentials)
+                    .post(url, data)
                     .then((response) => {
                         const result = response.data;
                         const { message, status, data } = result;
@@ -114,7 +114,7 @@ export function RegisterFood() {
                             Alert.alert(response.data.message);
                         } else {
                             console.log(response.data.message);
-                            navigation.navigate("RegisterPostForm", { ...data[0] });
+                            navigation.navigate("RegisterFoodTime", { ...data[0] });
                         }
                     }).catch(error => {
                         console.log(error);
@@ -123,9 +123,9 @@ export function RegisterFood() {
 
                 //navigation.navigate('RegisterPostForm');
             } catch {
-                return Alert.alert('Não foi possível realizar o cadastro...')
+                return Alert.alert('Não foi possível salvar as informações...')
             }
-            */
+            
 
             async function saveStorageRefeicao(refeicao_quantity:any) {
                 AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicao_quantity);
