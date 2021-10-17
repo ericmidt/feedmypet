@@ -83,10 +83,7 @@ export function RegisterFood() {
         if (!(refeicoes && porcoes))
         return Alert.alert('Preencha todos os dados por favor!')
         try {
-            // await savePlant({
-            //     // ...plant,
-            //     dateTimeNotification: selectedDateTime
-            // });
+        
             // refeicoes validation
         if(!isNumeric(refeicoes) ||  !isNumeric(porcoes))
         return Alert.alert('Apenas números são aceitos')
@@ -96,7 +93,7 @@ export function RegisterFood() {
             refeicoes: refeicoes
         }).then(function(valid){
             // SALVAR INFORMAÇÕES DE COMIDA NA API
-            console.log('email do usuario salvo na ultima pagina', user_email)
+            console.log('email do usuario: ', user_email)
             saveStorageRefeicao(refeicoes);
             
             try {
