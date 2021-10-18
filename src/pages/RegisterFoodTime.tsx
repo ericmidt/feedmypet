@@ -201,45 +201,52 @@ export function RegisterFoodTime() {
 
     async function handleSave() {
         const user_email  = await AsyncStorage.getItem('@plantmanager:user');
+       
         try {
             // SALVAR INFORMAÇÕES DE COMIDA NA API
             console.log('email do usuario: ', user_email)
             
-            try {
-                
-                let data = { 
-                    email: user_email,
-                    mealTime1:selectedDateTime, 
-                    mealTime2:selectedDateTime2, 
-                    mealTime3:selectedDateTime3, 
-                    mealTime4:selectedDateTime4, 
-                    mealTime5:selectedDateTime5 
-                };
+                try {
+                    const refeicaoQuantity  = await AsyncStorage.getItem('@plantmanager:refeicao_quantity');
+                    const porcoes  = await AsyncStorage.getItem('@plantmanager:porcoes');
+                    console.log('ref', refeicaoQuantity)
+                    console.log('por', porcoes)
+                    let data = { 
+                        id: 0,
+                        mealQuantity: refeicaoQuantity,
+                        portionsPerMeal: porcoes,
+                        email: user_email,
+                        mealTime1:selectedDateTime, 
+                        mealTime2:selectedDateTime2, 
+                        mealTime3:selectedDateTime3, 
+                        mealTime4:selectedDateTime4, 
+                        mealTime5:selectedDateTime5 
+                    };
 
-                console.log(data);
-                const url = "http://192.168.18.31:3000/user/registerschedule";
-                axios
-                    .post(url, data)
-                    .then((response) => {
-                        const result = response.data;
-                        const { message, status, data } = result;
-                        console.log(message);
-                        if (status !== "SUCCESS") {
-                            console.log(response.data.message);
-                            Alert.alert(response.data.message);
-                        } else {
-                            console.log(response.data.message);
-                            navigation.navigate("RegisterSuccess", { ...data[0] });
-                        }
-                    }).catch(error => {
-                        console.log(error);
-                        console.log(error.response.data);
-                    })
+                    console.log('dsds', data);
+                    const url = "http://192.168.18.31:3000/user/registerschedule";
+                    axios
+                        .post(url, data)
+                        .then((response) => {
+                            const result = response.data;
+                            const { message, status, data } = result;
+                            console.log(message);
+                            if (status !== "SUCCESS") {
+                                console.log(response.data.message);
+                                Alert.alert(response.data.message);
+                            } else {
+                                console.log(response.data.message);
+                                navigation.navigate("RegisterSuccess", { ...data[0] });
+                            }
+                        }).catch(error => {
+                            console.log(error);
+                            console.log(error.response.data);
+                        })
 
-                //navigation.navigate('RegisterPostForm');
-            } catch {
-                return Alert.alert('Não foi possível salvar as informações...')
-            }
+                    //navigation.navigate('RegisterPostForm');
+                } catch {
+                    return Alert.alert('Não foi possível salvar as informações...')
+                }
         } catch {
             Alert.alert('Não foi possível salvar.');
         }

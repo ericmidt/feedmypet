@@ -94,11 +94,13 @@ export function RegisterFood() {
         }).then(function(valid){
             // SALVAR INFORMAÇÕES DE COMIDA NA API
             console.log('email do usuario: ', user_email)
-            saveStorageRefeicao(refeicoes);
+            saveStorageRefeicao(refeicoes, porcoes);
             
+            /* 
             try {
-                let data = { email: user_email, mealQuantity: refeicoes, portionsPerMeal: porcoes };
+                let data = { email: user_email, mealQuantity: refeicoes, portionsPerMeal: porcoes, id: 0 };
                 console.log(data);
+               
                 const url = "http://192.168.18.31:3000/user/registerfood";
                 axios
                     .post(url, data)
@@ -119,13 +121,16 @@ export function RegisterFood() {
                     })
 
                 //navigation.navigate('RegisterPostForm');
+                
             } catch {
                 return Alert.alert('Não foi possível salvar as informações...')
             }
+            */
             
 
-            async function saveStorageRefeicao(refeicao_quantity:any) {
+            async function saveStorageRefeicao(refeicao_quantity:any, porcoes:any) {
                 AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicao_quantity);
+                AsyncStorage.setItem('@plantmanager:porcoes', porcoes);
             }
 
             navigation.navigate('RegisterFoodTime');

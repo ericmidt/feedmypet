@@ -22,14 +22,20 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ModulesProps {
-    pet_name: String,
-    mealQuantity: Number,
-    portionsPerMeal: Number,
-    mealTime1: Date,
-    mealTime2: Date,
-    mealTime3: Date,
-    mealTime4: Date,
-    mealTime5: Date,
+    name: String,
+    email: String,
+    password: String,
+    modules: [{
+        id: Number,
+        petName: String,
+        mealQuantity: Number,
+        portionsPerMeal: Number,
+        mealTime1: Date,
+        mealTime2: Date,
+        mealTime3: Date,
+        mealTime4: Date,
+        mealTime5: Date
+    }]
 }
 
 export function ModuleSelect() {
