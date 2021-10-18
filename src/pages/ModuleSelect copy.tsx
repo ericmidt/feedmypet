@@ -17,11 +17,11 @@ import api from '../services/api';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load';
 import { useNavigation } from '@react-navigation/native';
-//import { ModuleProps } from '../libs/storage';
+import { ModuleProps } from '../libs/storage';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface ModulesProps {
+interface ModuleInterface {
     pet_name: String,
     mealQuantity: Number,
     portionsPerMeal: Number,
@@ -32,10 +32,17 @@ interface ModulesProps {
     mealTime5: Date,
 }
 
+interface StorageModule {
+    [id: string]: {
+        data: ModuleProps;
+        notificationId: string;
+    }
+}
+
 export function ModuleSelect() {
-    const [modules, setModules] = useState<ModulesProps[]>([]);
-    const [plants, setPlants] = useState<ModulesProps[]>([]);
-    const [filteredPlants, setFilteredPlants] = useState<ModulesProps[]>([]);
+    const [modules, setModules] = useState<ModuleInterface[]>([]);
+    //const [plants, setPlants] = useState<ModuleInterface[]>([]);
+    //const [filteredPlants, setFilteredPlants] = useState<ModuleInterface[]>([]);
     const [moduleSelected, setModuleSelected] = useState('all');
     const [loading, setLoading] = useState(true);
 
@@ -45,7 +52,7 @@ export function ModuleSelect() {
     const navigation = useNavigation();
 
 
-    function handleModuleSelect(module: ModulesProps) {
+    function handleModuleSelect(module: ModuleInterface) {
         navigation.navigate('ModuleEdit', { module });
     }
 
@@ -65,10 +72,22 @@ export function ModuleSelect() {
                         if (status !== "SUCCESS") {
                             console.log(response.data.message);
                         } else {
-                            console.log(response.data.message);
+                            console.log(response.data);
                             let { name , petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5 } =  response.data.data[0];
+                            let data =  {
+                                petName,
+                                mealQuantity: Number(mealQuantity),
+                                portionsPerMeal: Number(portionsPerMeal),
+                                mealTime1,
+                                mealTime2,
+                                mealTime3,
+                                mealTime4,
+                                mealTime5
+                            }
+                        
                             setModules(response.data);
-                            console.log('dados:', response.data)
+                            console.log(response.data)
+                            console.log('dasds')
                         }
                     }).catch(error => {
                         console.log('erro:', error)

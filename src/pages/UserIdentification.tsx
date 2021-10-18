@@ -75,6 +75,8 @@ export function UserIdentification() {
                         Alert.alert(response.data.message);
                     } else {
                         console.log(response.data.message);
+                        //salvar email
+                        AsyncStorage.setItem('@plantmanager:user', name);
                         navigation.navigate("ModuleSelect", { ...data[0] });
                     }
                 }).catch(error => {
@@ -132,11 +134,12 @@ export function UserIdentification() {
                             />
                             <TextInput
                                 style={[
-                                    styles.input,
+                                    styles.inputPass,
                                     (isFocused || isFilled) &&
                                     { borderColor: colors.green }
                                 ]}
                                 placeholder="senha"
+                                secureTextEntry={true}
                                 onBlur={handleInputBlur}
                                 onFocus={handleInputFocus}
                                 onChangeText={handleInputChangePassword}
@@ -202,6 +205,16 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').width * 0.55
     },
     input: {
+        borderBottomWidth: 1,
+        borderColor: colors.gray,
+        color: colors.heading,
+        width: '100%',
+        fontSize: 18,
+        marginTop: 50,
+        padding: 10,
+        textAlign: 'center'
+    },
+    inputPass: {
         borderBottomWidth: 1,
         borderColor: colors.gray,
         color: colors.heading,

@@ -209,13 +209,13 @@ export function RegisterFoodTime() {
                 
                 let data = { 
                     email: user_email,
-                    mealTime1: selectedDateTime, 
-                    mealTime2: selectedDateTime2, 
-                    mealTime3: selectedDateTime3, 
+                    mealTime1:selectedDateTime, 
+                    mealTime2:selectedDateTime2, 
+                    mealTime3:selectedDateTime3, 
                     mealTime4:selectedDateTime4, 
                     mealTime5:selectedDateTime5 
                 };
-                
+
                 console.log(data);
                 const url = "http://192.168.18.31:3000/user/registerschedule";
                 axios
