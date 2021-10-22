@@ -3,6 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
+    TouchableOpacity,
+    TouchableOpacityProps,
     FlatList,
     ActivityIndicator,
     Alert
@@ -21,13 +23,10 @@ import { useNavigation } from '@react-navigation/native';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 interface ModulesProps {
-    name: String,
-    email: String,
-    password: String,
-    modules: [{
         id: Number,
-        petName: String,
+        petName: string,
         mealQuantity: Number,
         portionsPerMeal: Number,
         mealTime1: Date,
@@ -35,7 +34,7 @@ interface ModulesProps {
         mealTime3: Date,
         mealTime4: Date,
         mealTime5: Date
-    }]
+    
 }
 
 export function ModuleSelect() {
@@ -73,8 +72,9 @@ export function ModuleSelect() {
                         } else {
                             console.log(response.data.message);
                             let { name , petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5 } =  response.data.data[0];
-                            setModules(response.data);
                             console.log('dados:', response.data)
+                            console.log('dados 2:', response.data.data[0].modules)
+                            setModules(response.data.data[0].modules);
                         }
                     }).catch(error => {
                         console.log('erro:', error)
@@ -107,24 +107,23 @@ export function ModuleSelect() {
             </View>
 
             <View>
-                <Text>hello World</Text>
-                {/* essa library ajuda a criar varios componentes repetidos, dependendo do objeto que recebe 
+                {/* essa library ajuda a criar varios componentes repetidos, dependendo do objeto que recebe */}
                 <FlatList
                     data={modules}
-                    keyExtractor={(item) => String(item.key.toString())}
+                    keyExtractor={(item) => String(item.id)}
                     renderItem={({ item }) => (
-                        <EnvironmentButton
-                            title={item.pet_name}
+                        <View>
+                            <EnvironmentButton
+                            title={item.petName}
                             onPress={() => handleModuleSelect(item)}
-                        />
+                            />
+                        </View>
                     )}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.environmentList}
                 />
-                */}
+                
             </View>
-
-
         </View>
     )
 }
@@ -153,5 +152,23 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 32,
         justifyContent: 'center'
+    },
+    button: {
+        backgroundColor: colors.red,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
+        marginTop: 50,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 10,
+        height: 56,
+        width: 56,
+    },
+    plus: {
+        fontSize: 32,
+        fontWeight: '500',
+        color: 'white'
+
     }
 });

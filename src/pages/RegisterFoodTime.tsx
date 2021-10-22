@@ -209,9 +209,11 @@ export function RegisterFoodTime() {
                 try {
                     const refeicaoQuantity  = await AsyncStorage.getItem('@plantmanager:refeicao_quantity');
                     const porcoes  = await AsyncStorage.getItem('@plantmanager:porcoes');
+                    const petName  = await AsyncStorage.getItem('@plantmanager:petName');
                     console.log('ref', refeicaoQuantity)
                     console.log('por', porcoes)
                     let data = { 
+                        petName,
                         id: 0,
                         mealQuantity: refeicaoQuantity,
                         portionsPerMeal: porcoes,
@@ -223,7 +225,7 @@ export function RegisterFoodTime() {
                         mealTime5:selectedDateTime5 
                     };
 
-                    console.log('dsds', data);
+                    //console.log('data construido para envio ao db', data);
                     const url = "http://192.168.18.31:3000/user/registerschedule";
                     axios
                         .post(url, data)

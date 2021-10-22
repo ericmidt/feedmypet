@@ -31,7 +31,7 @@ export function EnvironmentButton({
                 styles.text,
                 active && styles.textActive
             ]}>
-                {title}
+               {title}
             </Text>
         </RectButton>
     );

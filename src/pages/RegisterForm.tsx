@@ -124,6 +124,7 @@ export function RegisterForm() {
                                 console.log(response.data.message);
                                 //save email
                                 AsyncStorage.setItem('@plantmanager:user', email);
+                                AsyncStorage.setItem('@plantmanager:petName', petName);
                                 navigation.navigate("RegisterPostForm", { ...data[0] });
 
                             }
