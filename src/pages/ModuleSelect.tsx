@@ -16,7 +16,6 @@ import fonts from '../../styles/fonts';
 import { EnvironmentButton } from '../components/EnvironmentButton';
 import { useEffect } from 'react';
 import api from '../services/api';
-import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load';
 import { useNavigation } from '@react-navigation/native';
 //import { ModuleProps } from '../libs/storage';
@@ -61,7 +60,8 @@ export function ModuleSelect() {
             let credentials = { email: user_email };
             console.log('email', user_email)
             try {
-                const url = "http://192.168.18.31:3000/user/modules";
+                const url = api + "/user/modules";
+                
                 axios
                     .post(url, credentials)
                     .then((response) => {

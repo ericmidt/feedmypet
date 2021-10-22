@@ -96,37 +96,6 @@ export function RegisterFood() {
             console.log('email do usuario: ', user_email)
             saveStorageRefeicao(refeicoes, porcoes);
             
-            /* 
-            try {
-                let data = { email: user_email, mealQuantity: refeicoes, portionsPerMeal: porcoes, id: 0 };
-                console.log(data);
-               
-                const url = "http://192.168.18.31:3000/user/registerfood";
-                axios
-                    .post(url, data)
-                    .then((response) => {
-                        const result = response.data;
-                        const { message, status, data } = result;
-                        console.log(message);
-                        if (status !== "SUCCESS") {
-                            console.log(response.data.message);
-                            Alert.alert(response.data.message);
-                        } else {
-                            console.log(response.data.message);
-                            navigation.navigate("RegisterFoodTime", { ...data[0] });
-                        }
-                    }).catch(error => {
-                        console.log(error);
-                        console.log(error.response.data);
-                    })
-
-                //navigation.navigate('RegisterPostForm');
-                
-            } catch {
-                return Alert.alert('Não foi possível salvar as informações...')
-            }
-            */
-            
 
             async function saveStorageRefeicao(refeicao_quantity:any, porcoes:any) {
                 AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicao_quantity);

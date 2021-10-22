@@ -22,10 +22,9 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // keyboard dismiss func
-import { useHeaderHeight  } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import axios from "axios";
-
+import api from '../services/api';
 
 // email and password validator
 import * as yup from 'yup';
@@ -110,7 +109,7 @@ export function RegisterForm() {
                 try {
                     let credentials = { name, petName, email, password };
                     console.log(credentials);
-                    const url = "http://192.168.18.31:3000/user/signup";
+                    const url = api + "/user/signup";
                     axios
                         .post(url, credentials)
                         .then((response) => {
@@ -125,7 +124,8 @@ export function RegisterForm() {
                                 //save email
                                 AsyncStorage.setItem('@plantmanager:user', email);
                                 AsyncStorage.setItem('@plantmanager:petName', petName);
-                                navigation.navigate("RegisterPostForm", { ...data[0] });
+                                AsyncStorage.setItem('@plantmanager:name', name);
+                                navigation.navigate("RegisterFood", { ...data[0] });
 
                             }
                         }).catch(error => {
