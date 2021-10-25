@@ -386,7 +386,7 @@ export function ModuleEdit() {
                                   <DateTimePicker
                                       value={selectedDateTime}
                                       mode="time"
-                                      display="spinner"
+                                      
                                       onChange={handleChangeTime}
                                   />
                               )}
@@ -413,7 +413,7 @@ export function ModuleEdit() {
                                   <DateTimePicker
                                       value={selectedDateTime2}
                                       mode="time"
-                                      display="spinner"
+                                      
                                       onChange={handleChangeTime2}
                                   />
                               )}
@@ -441,7 +441,7 @@ export function ModuleEdit() {
                                   <DateTimePicker
                                       value={selectedDateTime3}
                                       mode="time"
-                                      display="spinner"
+                                      
                                       onChange={handleChangeTime3}
                                   />
                               )}
@@ -468,7 +468,7 @@ export function ModuleEdit() {
                                   <DateTimePicker
                                       value={selectedDateTime4}
                                       mode="time"
-                                      display="spinner"
+                                      
                                       onChange={handleChangeTime4}
                                   />
                               )}
@@ -495,7 +495,7 @@ export function ModuleEdit() {
                                   <DateTimePicker
                                       value={selectedDateTime5}
                                       mode="time"
-                                      display="spinner"
+                                      
                                       onChange={handleChangeTime5}
                                   />
                               )}
