@@ -162,6 +162,9 @@ export function UserIdentification() {
                                 title={'Quero me cadastrar!'}
                                 onPress={handleRegister}
                             />
+                            <Text style={styles.subtitle2}>
+                                    Suporte: support@feedmypet.com
+                                </Text>
                         </View>
                     </View>
 
@@ -187,6 +190,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingHorizontal: 10,
         color: colors.heading,
+        fontFamily: fonts.text
+    },
+    subtitle2: {
+        textAlign: 'center',
+        marginTop:15,
+        fontSize: 14,
+        color: '#b4b4b4',
         fontFamily: fonts.text
     },
     form: {

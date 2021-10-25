@@ -19,7 +19,6 @@ import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { format, isBefore } from 'date-fns';
-import { PlantProps, savePlant } from '../libs/storage';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonBack } from '../components/ButtonBack';
@@ -145,8 +144,6 @@ export function RegisterFood() {
                                 <TextInput
                                     style={[
                                     styles.input,
-                                    // (isFocused || isFilled) &&
-                                    // { borderColor: colors.green }
                                  ]}
                                     placeholder="Refeições (1-5)"
                                     // onBlur={handleInputBlur}
@@ -160,8 +157,6 @@ export function RegisterFood() {
                                 <TextInput
                                     style={[
                                     styles.input,
-                                    // (isFocused || isFilled) &&
-                                    // { borderColor: colors.green }
                                     ]}
                                     placeholder="Porções (1-5)"
                                     // onBlur={handleInputBlur}

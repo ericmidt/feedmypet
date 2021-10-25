@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     TouchableOpacityProps,
     FlatList,
+    TextInput,
     ActivityIndicator,
     Alert
 } from 'react-native';
@@ -17,10 +18,11 @@ import { EnvironmentButton } from '../components/EnvironmentButton';
 import { useEffect } from 'react';
 import api from '../services/api';
 import { Load } from '../components/Load';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 //import { ModuleProps } from '../libs/storage';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 interface ModulesProps {
@@ -37,11 +39,15 @@ interface ModulesProps {
 }
 
 export function ModuleSelect() {
+    const [refeicoes, setRefeicoes] = useState<string>();
+    const [porcoes, setPorcoes] = useState<string>();
     const [modules, setModules] = useState<ModulesProps[]>([]);
     const [plants, setPlants] = useState<ModulesProps[]>([]);
     const [filteredPlants, setFilteredPlants] = useState<ModulesProps[]>([]);
     const [moduleSelected, setModuleSelected] = useState('all');
     const [loading, setLoading] = useState(true);
+    // extra Input
+    const [petName, setPetName] = useState<string>();
 
     const [page, setPage] = useState(1);
     const [loadingMore, setLoadingMore] = useState(false);
@@ -53,7 +59,7 @@ export function ModuleSelect() {
         navigation.navigate('ModuleEdit', { module });
     }
 
- 
+
     useEffect(() => {
         async function fetchModules() {
             const user_email  = await AsyncStorage.getItem('@plantmanager:user');
@@ -71,10 +77,26 @@ export function ModuleSelect() {
                             console.log(response.data.message);
                         } else {
                             console.log(response.data.message);
-                            let { name , petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5 } =  response.data.data[0];
-                            console.log('dados:', response.data)
-                            console.log('dados 2:', response.data.data[0].modules)
+                            let { petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5 } =  response.data.data[0].modules[0];
+                            
+                            let { name } = response.data.data[0];
+                            AsyncStorage.setItem('@plantmanager:name', name);
+                            
+
+                            console.log('module select dados:', response.data.data[0].modules)
                             setModules(response.data.data[0].modules);
+                            if(mealQuantity && portionsPerMeal && petName && mealTime1 && mealTime2 && mealTime3 && mealTime4 && mealTime5){
+                                AsyncStorage.setItem('@plantmanager:refeicao_quantity', mealQuantity);
+                                AsyncStorage.setItem('@plantmanager:porcoes', portionsPerMeal);
+                                AsyncStorage.setItem('@plantmanager:petName', petName);
+                                AsyncStorage.setItem('@plantmanager:mealTime1', mealTime1);
+                                AsyncStorage.setItem('@plantmanager:mealTime2', mealTime2);
+                                AsyncStorage.setItem('@plantmanager:mealTime3', mealTime3);
+                                AsyncStorage.setItem('@plantmanager:mealTime4', mealTime4);
+                                AsyncStorage.setItem('@plantmanager:mealTime5', mealTime5);
+                            }
+                            
+                            
                         }
                     }).catch(error => {
                         console.log('erro:', error)
@@ -164,6 +186,17 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         height: 56,
         width: 56,
+    },
+    input: {
+        borderBottomWidth: 1,
+        borderColor: colors.gray,
+        color: colors.heading,
+        width: '100%',
+        fontSize: 18,
+        marginTop: 30,
+        padding: 10,
+        textAlign: 'center',
+        maxWidth: 250
     },
     plus: {
         fontSize: 32,
