@@ -56,14 +56,14 @@ export function ModuleSelect() {
         navigation.navigate('ModuleEdit', { module });
     }
 
- 
+
     useEffect(() => {
         async function fetchModules() {
-            const user_email  = await AsyncStorage.getItem('@plantmanager:user');
+            const user_email = await AsyncStorage.getItem('@plantmanager:user');
             let credentials = { email: user_email };
             console.log('email', user_email)
             try {
-                const url = "http://192.168.18.31:3000/user/modules";
+                const url = api + "/user/modules";
                 axios
                     .post(url, credentials)
                     .then((response) => {
@@ -73,8 +73,8 @@ export function ModuleSelect() {
                             console.log(response.data.message);
                         } else {
                             console.log(response.data);
-                            let { name , petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5 } =  response.data.data[0];
-                            let data =  {
+                            let { name, petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5 } = response.data.data[0];
+                            let data = {
                                 petName,
                                 mealQuantity: Number(mealQuantity),
                                 portionsPerMeal: Number(portionsPerMeal),
@@ -84,7 +84,7 @@ export function ModuleSelect() {
                                 mealTime4,
                                 mealTime5
                             }
-                        
+
                             setModules(response.data);
                             console.log(response.data)
                             console.log('dasds')
@@ -96,11 +96,11 @@ export function ModuleSelect() {
                 // await AsyncStorage.setItem('@plantmanager:user', name);
                 // await AsyncStorage.setItem('@plantmanager:password', password);
                 // navigation.navigate('ModuleSelect');
-                
+
             } catch {
                 return Alert.alert('erro ao buscar módulos')
             }
-            
+
         }
         fetchModules();
         setLoading(false);

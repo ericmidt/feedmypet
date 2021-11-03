@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
-
+import api from '../services/api';
 
 export function UserIdentification() {
     const [isFocused, setIsFocused] = useState(false);
@@ -61,10 +61,10 @@ export function UserIdentification() {
         if (!password)
             return Alert.alert('Insira sua senha')
         let credentials = { name, password };
-       
+
         try {
             handleMessage("");
-            const url = "http://192.168.18.31:3000/user/signin";
+            const url = api + "/user/signin";
             axios
                 .post(url, credentials)
                 .then((response) => {
@@ -86,11 +86,11 @@ export function UserIdentification() {
             // await AsyncStorage.setItem('@plantmanager:user', name);
             // await AsyncStorage.setItem('@plantmanager:password', password);
             // navigation.navigate('ModuleSelect');
-            
+
         } catch {
             return Alert.alert('Não foi possível efetuar o login')
         }
-        
+
         /*
         try {
             await AsyncStorage.setItem('@plantmanager:user', name);
@@ -163,8 +163,8 @@ export function UserIdentification() {
                                 onPress={handleRegister}
                             />
                             <Text style={styles.subtitle2}>
-                                    Suporte: support@feedmypet.com
-                                </Text>
+                                Suporte: support@feedmypet.com
+                            </Text>
                         </View>
                     </View>
 
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     },
     subtitle2: {
         textAlign: 'center',
-        marginTop:15,
+        marginTop: 15,
         fontSize: 14,
         color: '#b4b4b4',
         fontFamily: fonts.text
