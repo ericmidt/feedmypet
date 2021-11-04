@@ -26,16 +26,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface ModulesProps {
-        id: Number,
-        petName: string,
-        mealQuantity: Number,
-        portionsPerMeal: Number,
-        mealTime1: Date,
-        mealTime2: Date,
-        mealTime3: Date,
-        mealTime4: Date,
-        mealTime5: Date
-    
+    id: Number,
+    petName: string,
+    mealQuantity: Number,
+    portionsPerMeal: Number,
+    mealTime1: Date,
+    mealTime2: Date,
+    mealTime3: Date,
+    mealTime4: Date,
+    mealTime5: Date
+
 }
 
 export function ModuleSelect() {
@@ -62,12 +62,12 @@ export function ModuleSelect() {
 
     useEffect(() => {
         async function fetchModules() {
-            const user_email  = await AsyncStorage.getItem('@plantmanager:user');
+            const user_email = await AsyncStorage.getItem('@plantmanager:user');
             let credentials = { email: user_email };
             console.log('email', user_email)
             try {
                 const url = api + "/user/modules";
-                
+
                 axios
                     .post(url, credentials)
                     .then((response) => {
@@ -77,15 +77,15 @@ export function ModuleSelect() {
                             console.log(response.data.message);
                         } else {
                             console.log(response.data.message);
-                            let { petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5 } =  response.data.data[0].modules[0];
-                            
+                            let { petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5, pesoComida, pesoAgua } = response.data.data[0].modules[0];
+
                             let { name } = response.data.data[0];
                             AsyncStorage.setItem('@plantmanager:name', name);
-                            
+
 
                             console.log('module select dados:', response.data.data[0].modules)
                             setModules(response.data.data[0].modules);
-                            if(mealQuantity && portionsPerMeal && petName && mealTime1 && mealTime2 && mealTime3 && mealTime4 && mealTime5){
+                            if (mealQuantity && portionsPerMeal && petName && mealTime1 && mealTime2 && mealTime3 && mealTime4 && mealTime5 && pesoComida && pesoAgua) {
                                 AsyncStorage.setItem('@plantmanager:refeicao_quantity', mealQuantity);
                                 AsyncStorage.setItem('@plantmanager:porcoes', portionsPerMeal);
                                 AsyncStorage.setItem('@plantmanager:petName', petName);
@@ -94,9 +94,12 @@ export function ModuleSelect() {
                                 AsyncStorage.setItem('@plantmanager:mealTime3', mealTime3);
                                 AsyncStorage.setItem('@plantmanager:mealTime4', mealTime4);
                                 AsyncStorage.setItem('@plantmanager:mealTime5', mealTime5);
+                                AsyncStorage.setItem('@plantmanager:pesoComida', pesoComida);
+                                AsyncStorage.setItem('@plantmanager:pesoAgua', pesoAgua);
+                                AsyncStorage.setItem('@petmanager:petName', petName);
                             }
-                            
-                            
+
+
                         }
                     }).catch(error => {
                         console.log('erro:', error)
@@ -105,11 +108,11 @@ export function ModuleSelect() {
                 // await AsyncStorage.setItem('@plantmanager:user', name);
                 // await AsyncStorage.setItem('@plantmanager:password', password);
                 // navigation.navigate('ModuleSelect');
-                
+
             } catch {
                 return Alert.alert('erro ao buscar módulos')
             }
-            
+
         }
         fetchModules();
         setLoading(false);
@@ -136,15 +139,15 @@ export function ModuleSelect() {
                     renderItem={({ item }) => (
                         <View>
                             <EnvironmentButton
-                            title={item.petName}
-                            onPress={() => handleModuleSelect(item)}
+                                title={item.petName}
+                                onPress={() => handleModuleSelect(item)}
                             />
                         </View>
                     )}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.environmentList}
                 />
-                
+
             </View>
         </View>
     )

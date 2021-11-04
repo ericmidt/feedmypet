@@ -43,16 +43,16 @@ export function RegisterFood() {
         refeicoes: yup
             .number()
             .defined()
-            .min(1,'Numero de refeições inválido, escolha entre 1 e 5')
+            .min(1, 'Numero de refeições inválido, escolha entre 1 e 5')
             .max(5, 'Numero de refeições inválido, escolha entre 1 e 5'),
         porcoes: yup
             .number()
-            .min(1,'Numero de porções inválido, escolha entre 1 e 5')
+            .min(1, 'Numero de porções inválido, escolha entre 1 e 5')
             .max(5, 'Numero de porções inválido, escolha entre 1 e 5')
             .defined(),
-        
+
     });
-    
+
 
     const route = useRoute();
 
@@ -73,40 +73,40 @@ export function RegisterFood() {
         navigation.goBack();
     }
 
-    function isNumeric(num: any){
+    function isNumeric(num: any) {
         return !isNaN(num)
     }
 
     async function handleSave() {
-        const user_email  = await AsyncStorage.getItem('@plantmanager:user');
+        const user_email = await AsyncStorage.getItem('@plantmanager:user');
         if (!(refeicoes && porcoes))
-        return Alert.alert('Preencha todos os dados por favor!')
+            return Alert.alert('Preencha todos os dados por favor!')
         try {
-        
+
             // refeicoes validation
-        if(!isNumeric(refeicoes) ||  !isNumeric(porcoes))
-        return Alert.alert('Apenas números são aceitos')
-        inputSchema
-        .validate({
-            porcoes: porcoes,
-            refeicoes: refeicoes
-        }).then(function(valid){
-            // SALVAR INFORMAÇÕES DE COMIDA NA API
-            console.log('email do usuario: ', user_email)
-            saveStorageRefeicao(refeicoes, porcoes);
-            
+            if (!isNumeric(refeicoes) || !isNumeric(porcoes))
+                return Alert.alert('Apenas números são aceitos')
+            inputSchema
+                .validate({
+                    porcoes: porcoes,
+                    refeicoes: refeicoes
+                }).then(function (valid) {
+                    // SALVAR INFORMAÇÕES DE COMIDA NA API
+                    console.log('email do usuario: ', user_email)
+                    saveStorageRefeicao(refeicoes, porcoes);
 
-            async function saveStorageRefeicao(refeicao_quantity:any, porcoes:any) {
-                AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicao_quantity);
-                AsyncStorage.setItem('@plantmanager:porcoes', porcoes);
-            }
 
-            navigation.navigate('RegisterFoodTime');
-          })
-          .catch(function (err) {
-            alert(err.errors );
-            //err.errors; 
-          });
+                    async function saveStorageRefeicao(refeicao_quantity: any, porcoes: any) {
+                        AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicao_quantity);
+                        AsyncStorage.setItem('@plantmanager:porcoes', porcoes);
+                    }
+
+                    navigation.navigate('RegisterFoodTime');
+                })
+                .catch(function (err) {
+                    alert(err.errors);
+                    //err.errors; 
+                });
         } catch {
             Alert.alert('Não foi possível salvar.');
         }
@@ -116,7 +116,7 @@ export function RegisterFood() {
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
-                keyboardVerticalOffset = {-300} // adjust the value here if you need more padding: ;
+                keyboardVerticalOffset={-300} // adjust the value here if you need more padding: ;
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
@@ -139,24 +139,24 @@ export function RegisterFood() {
                             </Text>
                             <View style={styles.Dropdown}>
                                 <Text style={styles.dropdownTitle}>
-                                Quantidade de refeições
+                                    Quantidade de refeições
                                 </Text>
                                 <TextInput
                                     style={[
-                                    styles.input,
-                                 ]}
+                                        styles.input,
+                                    ]}
                                     placeholder="Refeições (1-5)"
                                     // onBlur={handleInputBlur}
                                     // onFocus={handleInputFocus}
                                     onChangeText={(value) => handleRefeicoesChange(value)}
-                                    />
+                                />
 
                                 <Text style={styles.dropdownTitle}>
                                     Porções por refeição
                                 </Text>
                                 <TextInput
                                     style={[
-                                    styles.input,
+                                        styles.input,
                                     ]}
                                     placeholder="Porções (1-5)"
                                     // onBlur={handleInputBlur}
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         width: '100%'
-        
+
     },
     dropdownTitle: {
         textAlign: 'center',
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: "100%",
         marginVertical: 20
-        
+
     },
     footer: {
         marginLeft: 'auto',
