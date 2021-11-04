@@ -94,8 +94,8 @@ export function ModuleSelect() {
                                 AsyncStorage.setItem('@plantmanager:mealTime3', mealTime3);
                                 AsyncStorage.setItem('@plantmanager:mealTime4', mealTime4);
                                 AsyncStorage.setItem('@plantmanager:mealTime5', mealTime5);
-                                AsyncStorage.setItem('@plantmanager:pesoComida', pesoComida);
-                                AsyncStorage.setItem('@plantmanager:pesoAgua', pesoAgua);
+                                AsyncStorage.setItem('@plantmanager:pesoComida', pesoComida.toString());
+                                AsyncStorage.setItem('@plantmanager:pesoAgua', pesoAgua.toString());
                                 AsyncStorage.setItem('@petmanager:petName', petName);
                             }
 

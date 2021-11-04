@@ -70,6 +70,8 @@ export function ModuleEdit() {
 
     const [pesoComida, setPesoComida] = useState<number>();
     const [pesoAgua, setPesoAgua] = useState<number>();
+    const [petName2, setPetName2] = useState<string>();
+
 
     //handler inputs
     //extra inputs
@@ -85,6 +87,21 @@ export function ModuleEdit() {
     function handlePorcoes(value: string) {
         setPorcoes(value);
     }
+
+    function handleAgua(value: number) {
+        setPesoAgua(value);
+    }
+
+
+    function handleComida(value: number) {
+        setPesoComida(value);
+    }
+
+
+    function handlePetName2(value: string) {
+        setPetName2(value);
+    }
+
 
     useEffect(() => {
         async function fetchRefeicoes() {
@@ -128,6 +145,9 @@ export function ModuleEdit() {
                 setSelectedDateTime3(time3);
                 setSelectedDateTime4(time4);
                 setSelectedDateTime5(time5);
+                setPetName2(petName2);
+                setPesoComida(Number(pesoComida));
+                setPesoAgua(Number(pesoAgua));
             }
 
             console.log('refeicao', refeicaoQuantity)
@@ -280,10 +300,13 @@ export function ModuleEdit() {
                     mealTime2: selectedDateTime2,
                     mealTime3: selectedDateTime3,
                     mealTime4: selectedDateTime4,
-                    mealTime5: selectedDateTime5
+                    mealTime5: selectedDateTime5,
+                    pesoComida: pesoComida,
+                    pesoAgua: pesoComida,
+                    petName2: petName2
                 };
 
-                //console.log('data construido para envio ao db', data);
+                console.log('data construido para envio ao db', data);
                 const url = api + "/user/registerschedule";
                 axios
                     .post(url, data)
@@ -525,13 +548,13 @@ export function ModuleEdit() {
 
                             <View style={styles.horarioBorder2} >
                                 <Text style={styles.text}>
-                                    Peso da água: 150 ml
+                                    Peso da água: {pesoComida}g
                                 </Text>
                             </View>
 
                             <View style={styles.horarioBorder2} >
                                 <Text style={styles.text}>
-                                    Peso da ração: 100 g
+                                    Peso da ração: {pesoAgua}ml
                                 </Text>
 
                             </View>
