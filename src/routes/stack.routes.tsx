@@ -8,9 +8,6 @@ import { Confirmation } from '../pages/Confirmation';
 import { RegisterForm } from '../pages/RegisterForm';
 import { RegisterPostForm } from '../pages/RegisterPostForm';
 
-import { PlantSave } from '../pages/PlantSave';
-import { MyPlants } from '../pages/MyPlants';
-import AuthRoutes from './tab.routes';
 import { RegisterModule } from '../pages/RegisterModule';
 import { RegisterFood } from '../pages/RegisterFood';
 import { RegisterFoodTime } from '../pages/RegisterFoodTime';
@@ -44,7 +41,7 @@ const AppRoutes: React.FC = () => (
             component={Confirmation}
         />
 
-        <stackRoutes.Screen
+        {/* <stackRoutes.Screen
             name="PlantSelect"
             component={AuthRoutes}
         />
@@ -52,12 +49,12 @@ const AppRoutes: React.FC = () => (
         <stackRoutes.Screen
             name="PlantSave"
             component={PlantSave}
-        />
-
+        /> */}
+        {/* 
         <stackRoutes.Screen
             name="MyPlants"
             component={AuthRoutes}
-        />
+        /> */}
 
         <stackRoutes.Screen
             name="RegisterForm"
