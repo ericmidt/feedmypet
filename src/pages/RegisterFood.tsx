@@ -118,13 +118,13 @@ export function RegisterFood() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                keyboardVerticalOffset={-300} // adjust the value here if you need more padding: ;
-                style={styles.container}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <KeyboardAvoidingView
+                    keyboardVerticalOffset={-300} // adjust the value here if you need more padding: ;
+                    style={styles.container}
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                >
                     <View style={styles.content}>
                         <ButtonBack
                             title={'<'}
@@ -135,14 +135,14 @@ export function RegisterFood() {
                         <View style={styles.controller}>
 
                             <Text style={styles.text}>
-                                Escolha a quantidade de refeições por dia e suas porções.
+                                Preencha os campos abaixo.
                             </Text>
                             <Text style={styles.subtext}>
                                 Uma porção = 10g
                             </Text>
                             <View style={styles.Dropdown}>
                                 <Text style={styles.dropdownTitle}>
-                                    Quantidade de refeições
+                                    Quantidade de refeições por dia
                                 </Text>
                                 <TextInput
                                     style={[
@@ -167,16 +167,18 @@ export function RegisterFood() {
                                     onChangeText={(value) => handlePorcoes(value)}
                                 />
                             </View>
+                            <View style={styles.footer}>
+                                <Button
+                                    title={'Confirmar'}
+                                    onPress={handleSave}
+                                />
+                            </View>
                         </View>
-                        <View style={styles.footer}>
-                            <Button
-                                title={'Confirmar'}
-                                onPress={handleSave}
-                            />
-                        </View>
+
                     </View>
-                </TouchableWithoutFeedback>
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+
         </SafeAreaView>
     )
 }
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         width: 300,
-        marginBottom: 40,
+        marginTop: 50,
         paddingHorizontal: 20
     },
     scrollListContainer: {
