@@ -3,11 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,
-    TouchableOpacityProps,
     FlatList,
-    TextInput,
-    ActivityIndicator,
     Alert
 } from 'react-native';
 

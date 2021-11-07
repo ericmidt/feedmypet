@@ -4,11 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import colors from '../../styles/colors';
 import { Welcome } from '../pages/Welcome';
 import { UserIdentification } from '../pages/UserIdentification';
-import { Confirmation } from '../pages/Confirmation';
 import { RegisterForm } from '../pages/RegisterForm';
-import { RegisterPostForm } from '../pages/RegisterPostForm';
 
-import { RegisterModule } from '../pages/RegisterModule';
 import { RegisterFood } from '../pages/RegisterFood';
 import { RegisterFoodTime } from '../pages/RegisterFoodTime';
 import { RegisterSuccess } from '../pages/RegisterSuccess';
@@ -37,21 +34,8 @@ const AppRoutes: React.FC = () => (
         />
 
         <stackRoutes.Screen
-            name="Confirmation"
-            component={Confirmation}
-        />
-
-        <stackRoutes.Screen
             name="RegisterForm"
             component={RegisterForm}
-        />
-        <stackRoutes.Screen
-            name="RegisterPostForm"
-            component={RegisterPostForm}
-        />
-        <stackRoutes.Screen
-            name="RegisterModule"
-            component={RegisterModule}
         />
         <stackRoutes.Screen
             name="RegisterFood"
