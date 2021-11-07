@@ -78,7 +78,7 @@ export function RegisterFood() {
     }
 
     async function handleSave() {
-        const user_email = await AsyncStorage.getItem('@plantmanager:user');
+        const user_email = await AsyncStorage.getItem('@feedmypet:user');
         if (!(refeicoes && porcoes))
             return Alert.alert('Preencha todos os dados por favor!')
         try {
@@ -97,8 +97,11 @@ export function RegisterFood() {
 
 
                     async function saveStorageRefeicao(refeicao_quantity: any, porcoes: any) {
-                        AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicao_quantity);
-                        AsyncStorage.setItem('@plantmanager:porcoes', porcoes);
+                        AsyncStorage.setItem('@feedmypet:refeicao_quantity', refeicao_quantity);
+                        AsyncStorage.setItem('@feedmypet:porcoes', porcoes);
+                        //inicializando os pesos como zero
+                        AsyncStorage.setItem('@feedmypet:pesoComida', "0");
+                        AsyncStorage.setItem('@feedmypet:pesoAgua', "0");
                     }
 
                     navigation.navigate('RegisterFoodTime');

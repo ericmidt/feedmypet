@@ -50,9 +50,9 @@ export function RegisterForm() {
             .string()
             .min(8, 'A senha deve ter no mínimo 8 caracteres')
             .defined()
-        
-      });
-    
+
+    });
+
 
     // function handleInputBlur() {
     //     setIsFocused(false);
@@ -92,20 +92,20 @@ export function RegisterForm() {
         navigation.goBack();
     }
 
-   
+
 
     async function handleSubmit() {
         if (!(name && petName && email && password && passwordConfirm))
             return Alert.alert('Preencha todos os dados por favor!')
-        
-            // email and password validation
-            validationSchema
+
+        // email and password validation
+        validationSchema
             .validate({
                 email: email,
                 password: password
-            }).then(function(valid){
+            }).then(function (valid) {
                 if (password != passwordConfirm)
-                return Alert.alert('As senhas são diferentes!')
+                    return Alert.alert('As senhas são diferentes!')
                 try {
                     let credentials = { name, petName, email, password };
                     console.log(credentials);
@@ -122,9 +122,9 @@ export function RegisterForm() {
                             } else {
                                 console.log(response.data.message);
                                 //save email
-                                AsyncStorage.setItem('@plantmanager:user', email);
-                                AsyncStorage.setItem('@plantmanager:petName', petName);
-                                AsyncStorage.setItem('@plantmanager:name', name);
+                                AsyncStorage.setItem('@feedmypet:user', email);
+                                AsyncStorage.setItem('@feedmypet:petName', petName);
+                                AsyncStorage.setItem('@feedmypet:name', name);
                                 navigation.navigate("RegisterFood", { ...data[0] });
 
                             }
@@ -139,10 +139,10 @@ export function RegisterForm() {
                 }
                 /*
                 try {
-                     AsyncStorage.setItem('@plantmanager:user', name);
-                     AsyncStorage.setItem('@plantmanager:pet', petName);
-                     AsyncStorage.setItem('@plantmanager:email', email);
-                     AsyncStorage.setItem('@plantmanager:password', password);
+                     AsyncStorage.setItem('@feedmypet:user', name);
+                     AsyncStorage.setItem('@feedmypet:pet', petName);
+                     AsyncStorage.setItem('@feedmypet:email', email);
+                     AsyncStorage.setItem('@feedmypet:password', password);
         
                     navigation.navigate('RegisterPostForm');
                 } catch {
@@ -150,18 +150,18 @@ export function RegisterForm() {
                 }
                  */
 
-              })
-              .catch(function (err) {
-                alert(err.errors );
+            })
+            .catch(function (err) {
+                alert(err.errors);
                 //err.errors; 
-              });
+            });
 
     }
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
-                 keyboardVerticalOffset = {-300} // adjust the value here if you need more padding: ;
-                style = {styles.container}
+                keyboardVerticalOffset={-300} // adjust the value here if you need more padding: ;
+                style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

@@ -62,7 +62,7 @@ export function ModuleSelect() {
 
     useEffect(() => {
         async function fetchModules() {
-            const user_email = await AsyncStorage.getItem('@plantmanager:user');
+            const user_email = await AsyncStorage.getItem('@feedmypet:user');
             let credentials = { email: user_email };
             console.log('email', user_email)
             try {
@@ -80,23 +80,23 @@ export function ModuleSelect() {
                             let { petName, mealQuantity, portionsPerMeal, mealTime1, mealTime2, mealTime3, mealTime4, mealTime5, pesoComida, pesoAgua } = response.data.data[0].modules[0];
 
                             let { name } = response.data.data[0];
-                            AsyncStorage.setItem('@plantmanager:name', name);
+                            AsyncStorage.setItem('@feedmypet:name', name);
 
 
-                            console.log('module select dados:', response.data.data[0].modules)
+
                             setModules(response.data.data[0].modules);
                             if (mealQuantity && portionsPerMeal && petName && mealTime1 && mealTime2 && mealTime3 && mealTime4 && mealTime5 && pesoComida && pesoAgua) {
-                                AsyncStorage.setItem('@plantmanager:refeicao_quantity', mealQuantity);
-                                AsyncStorage.setItem('@plantmanager:porcoes', portionsPerMeal);
-                                AsyncStorage.setItem('@plantmanager:petName', petName);
-                                AsyncStorage.setItem('@plantmanager:mealTime1', mealTime1);
-                                AsyncStorage.setItem('@plantmanager:mealTime2', mealTime2);
-                                AsyncStorage.setItem('@plantmanager:mealTime3', mealTime3);
-                                AsyncStorage.setItem('@plantmanager:mealTime4', mealTime4);
-                                AsyncStorage.setItem('@plantmanager:mealTime5', mealTime5);
-                                AsyncStorage.setItem('@plantmanager:pesoComida', pesoComida.toString());
-                                AsyncStorage.setItem('@plantmanager:pesoAgua', pesoAgua.toString());
-                                AsyncStorage.setItem('@petmanager:petName', petName);
+                                AsyncStorage.setItem('@feedmypet:refeicao_quantity', mealQuantity);
+                                AsyncStorage.setItem('@feedmypet:porcoes', portionsPerMeal);
+                                AsyncStorage.setItem('@feedmypet:petName', petName);
+                                AsyncStorage.setItem('@feedmypet:mealTime1', mealTime1);
+                                AsyncStorage.setItem('@feedmypet:mealTime2', mealTime2);
+                                AsyncStorage.setItem('@feedmypet:mealTime3', mealTime3);
+                                AsyncStorage.setItem('@feedmypet:mealTime4', mealTime4);
+                                AsyncStorage.setItem('@feedmypet:mealTime5', mealTime5);
+                                AsyncStorage.setItem('@feedmypet:pesoComida', pesoComida.toString());
+                                AsyncStorage.setItem('@feedmypet:pesoAgua', pesoAgua.toString());
+                                console.log('ModuleSelect dentro do if:', response.data.data[0].modules)
                             }
 
 
@@ -105,8 +105,8 @@ export function ModuleSelect() {
                         console.log('erro:', error)
                         console.log(error.response.data);
                     })
-                // await AsyncStorage.setItem('@plantmanager:user', name);
-                // await AsyncStorage.setItem('@plantmanager:password', password);
+                // await AsyncStorage.setItem('@feedmypet:user', name);
+                // await AsyncStorage.setItem('@feedmypet:password', password);
                 // navigation.navigate('ModuleSelect');
 
             } catch {

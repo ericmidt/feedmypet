@@ -59,7 +59,7 @@ export function ModuleSelect() {
 
     useEffect(() => {
         async function fetchModules() {
-            const user_email = await AsyncStorage.getItem('@plantmanager:user');
+            const user_email = await AsyncStorage.getItem('@feedmypet:user');
             let credentials = { email: user_email };
             console.log('email', user_email)
             try {
@@ -93,8 +93,8 @@ export function ModuleSelect() {
                         console.log('erro:', error)
                         console.log(error.response.data);
                     })
-                // await AsyncStorage.setItem('@plantmanager:user', name);
-                // await AsyncStorage.setItem('@plantmanager:password', password);
+                // await AsyncStorage.setItem('@feedmypet:user', name);
+                // await AsyncStorage.setItem('@feedmypet:password', password);
                 // navigation.navigate('ModuleSelect');
 
             } catch {

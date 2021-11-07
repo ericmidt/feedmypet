@@ -76,15 +76,16 @@ export function UserIdentification() {
                     } else {
                         console.log(response.data.message);
                         //salvar email
-                        AsyncStorage.setItem('@plantmanager:user', name);
+                        AsyncStorage.setItem('@feedmypet:user', name);
+                        console.log('Data User Id: ', response.data);
                         navigation.navigate("ModuleSelect", { ...data[0] });
                     }
                 }).catch(error => {
                     console.log('erro:', error)
                     console.log(error.response.data);
                 })
-            // await AsyncStorage.setItem('@plantmanager:user', name);
-            // await AsyncStorage.setItem('@plantmanager:password', password);
+            // await AsyncStorage.setItem('@feedmypet:user', name);
+            // await AsyncStorage.setItem('@feedmypet:password', password);
             // navigation.navigate('ModuleSelect');
 
         } catch {
@@ -93,8 +94,8 @@ export function UserIdentification() {
 
         /*
         try {
-            await AsyncStorage.setItem('@plantmanager:user', name);
-            await AsyncStorage.setItem('@plantmanager:password', password);
+            await AsyncStorage.setItem('@feedmypet:user', name);
+            await AsyncStorage.setItem('@feedmypet:password', password);
             navigation.navigate('ModuleSelect');
         } catch {
             return Alert.alert('Não foi possível salvar nome do pet')

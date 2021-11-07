@@ -105,17 +105,18 @@ export function ModuleEdit() {
 
     useEffect(() => {
         async function fetchRefeicoes() {
-            const refeicaoQuantity = await AsyncStorage.getItem('@plantmanager:refeicao_quantity');
-            const porcoes = await AsyncStorage.getItem('@plantmanager:porcoes');
-            const petName = await AsyncStorage.getItem('@plantmanager:petName');
-            const mealTime1 = await AsyncStorage.getItem('@plantmanager:mealTime1');
-            const mealTime2 = await AsyncStorage.getItem('@plantmanager:mealTime2');
-            const mealTime3 = await AsyncStorage.getItem('@plantmanager:mealTime3');
-            const mealTime4 = await AsyncStorage.getItem('@plantmanager:mealTime4');
-            const mealTime5 = await AsyncStorage.getItem('@plantmanager:mealTime5');
-            const pesoComida = await AsyncStorage.getItem('@plantmanager:pesoComida');
-            const pesoAgua = await AsyncStorage.getItem('@plantmanager:pesoAgua');
-            const petName2 = await AsyncStorage.getItem('@petmanager:petName');
+            const refeicaoQuantity = await AsyncStorage.getItem('@feedmypet:refeicao_quantity');
+            const porcoes = await AsyncStorage.getItem('@feedmypet:porcoes');
+            const petName = await AsyncStorage.getItem('@feedmypet:petName');
+            const mealTime1 = await AsyncStorage.getItem('@feedmypet:mealTime1');
+            const mealTime2 = await AsyncStorage.getItem('@feedmypet:mealTime2');
+            const mealTime3 = await AsyncStorage.getItem('@feedmypet:mealTime3');
+            const mealTime4 = await AsyncStorage.getItem('@feedmypet:mealTime4');
+            const mealTime5 = await AsyncStorage.getItem('@feedmypet:mealTime5');
+            const pesoComida = await AsyncStorage.getItem('@feedmypet:pesoComida');
+            const pesoAgua = await AsyncStorage.getItem('@feedmypet:pesoAgua');
+
+
 
             const moduleData = {
                 refeicaoQuantity,
@@ -128,14 +129,13 @@ export function ModuleEdit() {
                 mealTime5
             }
 
-            if (mealTime1 && mealTime2 && mealTime3 && mealTime4 && mealTime5 && petName && porcoes && refeicaoQuantity && pesoComida && pesoAgua && petName2) {
+            if (mealTime1 && mealTime2 && mealTime3 && mealTime4 && mealTime5 && petName && porcoes && refeicaoQuantity && pesoComida && pesoAgua) {
                 let time1 = new Date(mealTime1);
                 let time2 = new Date(mealTime2);
                 let time3 = new Date(mealTime3);
                 let time4 = new Date(mealTime4);
                 let time5 = new Date(mealTime5);
 
-                console.log('This is petName2: ', petName2);
                 console.log('This is petName: ', petName);
                 setPetName(petName);
                 setRefeicoes(refeicaoQuantity);
@@ -145,7 +145,6 @@ export function ModuleEdit() {
                 setSelectedDateTime3(time3);
                 setSelectedDateTime4(time4);
                 setSelectedDateTime5(time5);
-                setPetName2(petName2);
                 setPesoComida(Number(pesoComida));
                 setPesoAgua(Number(pesoAgua));
             }
@@ -280,7 +279,7 @@ export function ModuleEdit() {
     }
 
     async function handleSave() {
-        const user_email = await AsyncStorage.getItem('@plantmanager:user');
+        const user_email = await AsyncStorage.getItem('@feedmypet:user');
 
 
         try {
@@ -302,8 +301,7 @@ export function ModuleEdit() {
                     mealTime4: selectedDateTime4,
                     mealTime5: selectedDateTime5,
                     pesoComida: pesoComida,
-                    pesoAgua: pesoComida,
-                    petName2: petName2
+                    pesoAgua: pesoComida
                 };
 
                 console.log('data construido para envio ao db', data);
@@ -321,9 +319,9 @@ export function ModuleEdit() {
                             //atualizando sync storage
 
                             if (refeicoes && porcoes && petName && selectedDateTime && selectedDateTime2 && selectedDateTime3 && selectedDateTime4 && selectedDateTime5) {
-                                AsyncStorage.setItem('@plantmanager:refeicao_quantity', refeicoes);
-                                AsyncStorage.setItem('@plantmanager:porcoes', porcoes);
-                                AsyncStorage.setItem('@plantmanager:petName', petName);
+                                AsyncStorage.setItem('@feedmypet:refeicao_quantity', refeicoes);
+                                AsyncStorage.setItem('@feedmypet:porcoes', porcoes);
+                                AsyncStorage.setItem('@feedmypet:petName', petName);
                             }
 
                             console.log(' edit module data: ', data)
