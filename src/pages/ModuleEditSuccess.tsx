@@ -26,7 +26,7 @@ export function ModuleEditSuccess() {
     const navigation = useNavigation();
 
 
-    
+
     async function handleSubmit() {
         try {
             navigation.navigate('ModuleSelect');

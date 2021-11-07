@@ -305,7 +305,7 @@ export function ModuleEdit() {
                 };
 
                 console.log('data construido para envio ao db', data);
-                const url = api + "/user/registerschedule";
+                const url = api + "/user/register";
                 axios
                     .post(url, data)
                     .then((response) => {
