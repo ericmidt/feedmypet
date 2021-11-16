@@ -301,7 +301,7 @@ export function ModuleEdit() {
                     mealTime4: selectedDateTime4,
                     mealTime5: selectedDateTime5,
                     pesoComida: pesoComida,
-                    pesoAgua: pesoComida
+                    pesoAgua: pesoAgua
                 };
 
                 console.log('data construido para envio ao db', data);
@@ -316,7 +316,7 @@ export function ModuleEdit() {
                             console.log(response.data.message);
                             Alert.alert(response.data.message);
                         } else {
-                            //atualizando sync storage
+                            //atualizando async storage
 
                             if (refeicoes && porcoes && petName && selectedDateTime && selectedDateTime2 && selectedDateTime3 && selectedDateTime4 && selectedDateTime5) {
                                 AsyncStorage.setItem('@feedmypet:refeicao_quantity', refeicoes);

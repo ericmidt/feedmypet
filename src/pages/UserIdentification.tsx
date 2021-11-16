@@ -10,7 +10,8 @@ import {
     Platform,
     Keyboard,
     Alert,
-    Dimensions
+    Dimensions,
+    ScrollView
 } from 'react-native';
 
 import { Button } from '../components/Button';

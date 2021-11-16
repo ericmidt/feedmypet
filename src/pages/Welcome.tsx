@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     Dimensions,
-    View
+    View,
+    ScrollView
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 

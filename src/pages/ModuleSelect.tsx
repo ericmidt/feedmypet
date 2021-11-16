@@ -4,7 +4,8 @@ import {
     Text,
     StyleSheet,
     FlatList,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 
 import { Header } from '../components/Header';
