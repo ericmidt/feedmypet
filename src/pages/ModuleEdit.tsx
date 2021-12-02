@@ -546,13 +546,13 @@ export function ModuleEdit() {
 
                             <View style={styles.horarioBorder2} >
                                 <Text style={styles.text}>
-                                    Peso da água: {pesoComida}g
+                                    Peso da ração: {pesoComida}g
                                 </Text>
                             </View>
 
                             <View style={styles.horarioBorder2} >
                                 <Text style={styles.text}>
-                                    Peso da ração: {pesoAgua}ml
+                                    Peso da água: {pesoAgua}ml
                                 </Text>
 
                             </View>
